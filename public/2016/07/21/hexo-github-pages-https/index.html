@@ -51,7 +51,8 @@
     
 </head>
 
-<body class="max-width mx-auto px3 ltr">    
+<body class="max-width mx-auto px3 ltr">
+    
       <div id="header-post">
   <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
   <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
@@ -93,12 +94,12 @@
   <li><a class="icon" href="http://reddit.com/submit?url=https://akapril.github.io/2016/07/21/hexo-github-pages-https/&title=Hexo博客Github Pages配置Https"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
   <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://akapril.github.io/2016/07/21/hexo-github-pages-https/&title=Hexo博客Github Pages配置Https"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
   <li><a class="icon" href="http://digg.com/submit?url=https://akapril.github.io/2016/07/21/hexo-github-pages-https/&title=Hexo博客Github Pages配置Https"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://akapril.github.io/2016/07/21/hexo-github-pages-https/&name=Hexo博客Github Pages配置Https&description=&lt;h3 id=&quot;Github-Pages应用自定义域名&quot;&gt;&lt;a href=&quot;#Github-Pages应用自定义域名&quot; class=&quot;headerlink&quot; title=&quot;Github Pages应用自定义域名&quot;&gt;&lt;/a&gt;Github Pages应用自定义域名&lt;/h3&gt;&lt;p&gt;默认情况下访问GitHub Pages页面的域名为&lt;code&gt;username.github.io&lt;/code&gt;，如果需要使用自己的域名（以下简称“你的域名”），可&lt;a href=&quot;https://help.github.com/articles/using-a-custom-domain-with-github-pages/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;参考官方的帮助文档&lt;/a&gt;，其实非常简单：&lt;/p&gt;
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://akapril.github.io/2016/07/21/hexo-github-pages-https/&name=Hexo博客Github Pages配置Https&description=&lt;h3 id=&#34;Github-Pages应用自定义域名&#34;&gt;&lt;a href=&#34;#Github-Pages应用自定义域名&#34; class=&#34;headerlink&#34; title=&#34;Github Pages应用自定义域名&#34;&gt;&lt;/a&gt;Github Pages应用自定义域名&lt;/h3&gt;&lt;p&gt;默认情况下访问GitHub Pages页面的域名为&lt;code&gt;username.github.io&lt;/code&gt;，如果需要使用自己的域名（以下简称“你的域名”），可&lt;a href=&#34;https://help.github.com/articles/using-a-custom-domain-with-github-pages/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;参考官方的帮助文档&lt;/a&gt;，其实非常简单：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;在repo根目录下创建CNAME文件，内容为你的域名。&lt;/li&gt;
 &lt;li&gt;在你的域名管理中心，添加一条CNAME记录，指向&lt;code&gt;username.github.io&lt;/code&gt;。（将username替换为你的GitHub用户名）&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;现在，访问&lt;code&gt;http://你的域名&lt;/code&gt; ，已经可以访问到站点首页了。而如果访问&lt;code&gt;http://username.github.io&lt;/code&gt; （即原来的地址），将被302跳转到&lt;code&gt;http://你的域名&lt;/code&gt;。&lt;br&gt;&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+&lt;p&gt;现在，访问&lt;code&gt;http://你的域名&lt;/code&gt; ，已经可以访问到站点首页了。而如果访问&lt;code&gt;http://username.github.io&lt;/code&gt; （即原来的地址），将被302跳转到&lt;code&gt;http://你的域名&lt;/code&gt;。&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -157,7 +158,8 @@
 <li>在repo根目录下创建CNAME文件，内容为你的域名。</li>
 <li>在你的域名管理中心，添加一条CNAME记录，指向<code>username.github.io</code>。（将username替换为你的GitHub用户名）</li>
 </ol>
-<p>现在，访问<code>http://你的域名</code> ，已经可以访问到站点首页了。而如果访问<code>http://username.github.io</code> （即原来的地址），将被302跳转到<code>http://你的域名</code>。<br><a id="more"></a></p>
+<p>现在，访问<code>http://你的域名</code> ，已经可以访问到站点首页了。而如果访问<code>http://username.github.io</code> （即原来的地址），将被302跳转到<code>http://你的域名</code>。</p>
+<a id="more"></a>
 <h3 id="Https的问题"><a href="#Https的问题" class="headerlink" title="Https的问题"></a>Https的问题</h3><p>尝试直接访问<code>https://你的域名</code>，浏览器会报<code>SSL_DOMAIN_NOT_MATCHED</code>警告。因为GitHub Pages默认提供的SSL证书的根域名是<code>github.io</code>，和你的域名不相同。<br>而且，GitHub Pages不支持上传SSL证书。</p>
 <h3 id="使用CloudFlare"><a href="#使用CloudFlare" class="headerlink" title="使用CloudFlare"></a>使用CloudFlare</h3><ol>
 <li>首先去<a href="https://www.cloudflare.com/" target="_blank" rel="noopener">https://www.cloudflare.com/</a>注册账户，配置好你的网站，然后把你域名的DNS服务换成cloudflare提供给你的DNS</li>
@@ -170,6 +172,7 @@
 </li>
 <li><p>主题的head文件添加以下配置<br>修改文件为\themes\next\layout\_partials下的head.swig</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=<span class="string">"canonical"</span> href=<span class="string">" &#123; &#123; site.url &#125; &#125;&#123; &#123; page.url &#125; &#125;"</span> /&gt;</span><br><span class="line"> &lt;script type=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line">    <span class="keyword">var</span> host = <span class="string">"yoursite.com"</span>;</span><br><span class="line">    <span class="keyword">if</span> ((host == <span class="built_in">window</span>.location.host) &amp;&amp; (<span class="built_in">window</span>.location.protocol != <span class="string">"https:"</span>))</span><br><span class="line">        <span class="built_in">window</span>.location.protocol = <span class="string">"https"</span>;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+
 </li>
 </ol>
 <p>现在，通过<code>https://你的域名</code>已经可以访问站点首页了。</p>
@@ -207,12 +210,12 @@
   <li><a class="icon" href="http://reddit.com/submit?url=https://akapril.github.io/2016/07/21/hexo-github-pages-https/&title=Hexo博客Github Pages配置Https"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
   <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://akapril.github.io/2016/07/21/hexo-github-pages-https/&title=Hexo博客Github Pages配置Https"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
   <li><a class="icon" href="http://digg.com/submit?url=https://akapril.github.io/2016/07/21/hexo-github-pages-https/&title=Hexo博客Github Pages配置Https"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://akapril.github.io/2016/07/21/hexo-github-pages-https/&name=Hexo博客Github Pages配置Https&description=&lt;h3 id=&quot;Github-Pages应用自定义域名&quot;&gt;&lt;a href=&quot;#Github-Pages应用自定义域名&quot; class=&quot;headerlink&quot; title=&quot;Github Pages应用自定义域名&quot;&gt;&lt;/a&gt;Github Pages应用自定义域名&lt;/h3&gt;&lt;p&gt;默认情况下访问GitHub Pages页面的域名为&lt;code&gt;username.github.io&lt;/code&gt;，如果需要使用自己的域名（以下简称“你的域名”），可&lt;a href=&quot;https://help.github.com/articles/using-a-custom-domain-with-github-pages/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;参考官方的帮助文档&lt;/a&gt;，其实非常简单：&lt;/p&gt;
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://akapril.github.io/2016/07/21/hexo-github-pages-https/&name=Hexo博客Github Pages配置Https&description=&lt;h3 id=&#34;Github-Pages应用自定义域名&#34;&gt;&lt;a href=&#34;#Github-Pages应用自定义域名&#34; class=&#34;headerlink&#34; title=&#34;Github Pages应用自定义域名&#34;&gt;&lt;/a&gt;Github Pages应用自定义域名&lt;/h3&gt;&lt;p&gt;默认情况下访问GitHub Pages页面的域名为&lt;code&gt;username.github.io&lt;/code&gt;，如果需要使用自己的域名（以下简称“你的域名”），可&lt;a href=&#34;https://help.github.com/articles/using-a-custom-domain-with-github-pages/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;参考官方的帮助文档&lt;/a&gt;，其实非常简单：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;在repo根目录下创建CNAME文件，内容为你的域名。&lt;/li&gt;
 &lt;li&gt;在你的域名管理中心，添加一条CNAME记录，指向&lt;code&gt;username.github.io&lt;/code&gt;。（将username替换为你的GitHub用户名）&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;现在，访问&lt;code&gt;http://你的域名&lt;/code&gt; ，已经可以访问到站点首页了。而如果访问&lt;code&gt;http://username.github.io&lt;/code&gt; （即原来的地址），将被302跳转到&lt;code&gt;http://你的域名&lt;/code&gt;。&lt;br&gt;&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+&lt;p&gt;现在，访问&lt;code&gt;http://你的域名&lt;/code&gt; ，已经可以访问到站点首页了。而如果访问&lt;code&gt;http://username.github.io&lt;/code&gt; （即原来的地址），将被302跳转到&lt;code&gt;http://你的域名&lt;/code&gt;。&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

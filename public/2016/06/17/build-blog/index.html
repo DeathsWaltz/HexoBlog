@@ -51,7 +51,8 @@
     
 </head>
 
-<body class="max-width mx-auto px3 ltr">    
+<body class="max-width mx-auto px3 ltr">
+    
       <div id="header-post">
   <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
   <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
@@ -91,7 +92,7 @@
   <li><a class="icon" href="http://reddit.com/submit?url=https://akapril.github.io/2016/06/17/build-blog/&title=使用Github Page和Hexo搭建个人博客"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
   <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://akapril.github.io/2016/06/17/build-blog/&title=使用Github Page和Hexo搭建个人博客"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
   <li><a class="icon" href="http://digg.com/submit?url=https://akapril.github.io/2016/06/17/build-blog/&title=使用Github Page和Hexo搭建个人博客"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://akapril.github.io/2016/06/17/build-blog/&name=使用Github Page和Hexo搭建个人博客&description=&lt;h2 id=&quot;安装环境&quot;&gt;&lt;a href=&quot;#安装环境&quot; class=&quot;headerlink&quot; title=&quot;安装环境&quot;&gt;&lt;/a&gt;安装环境&lt;/h2&gt;&lt;p&gt; 安装git和Node.js，&lt;a href=&quot;https://git-scm.com/downloads&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;git下载地址&lt;/a&gt;,&lt;a href=&quot;https://nodejs.org/en/download/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Node.js下载地址&lt;/a&gt;&lt;br&gt; 安装完成之后，就可进行hexo博客框架的安装&lt;br&gt;&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://akapril.github.io/2016/06/17/build-blog/&name=使用Github Page和Hexo搭建个人博客&description=&lt;h2 id=&#34;安装环境&#34;&gt;&lt;a href=&#34;#安装环境&#34; class=&#34;headerlink&#34; title=&#34;安装环境&#34;&gt;&lt;/a&gt;安装环境&lt;/h2&gt;&lt;p&gt; 安装git和Node.js，&lt;a href=&#34;https://git-scm.com/downloads&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;git下载地址&lt;/a&gt;,&lt;a href=&#34;https://nodejs.org/en/download/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Node.js下载地址&lt;/a&gt;&lt;br&gt; 安装完成之后，就可进行hexo博客框架的安装&lt;br&gt;&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -149,6 +150,7 @@
 <p> 执行完成之后hexo就安装成功了，第一步结束，环境配置完毕就可以开始创建自己的博客了</p>
 <h2 id="Github上创建仓库"><a href="#Github上创建仓库" class="headerlink" title="Github上创建仓库"></a>Github上创建仓库</h2><p> 创建与用户名对应的仓库，仓库名为your_user_name.github.io(your_user_name.github.com的好像也可以)<br> <img src="/2016/06/17/build-blog/Githubpicture.png" alt="Github"></p>
 <h2 id="博客的创建"><a href="#博客的创建" class="headerlink" title="博客的创建"></a>博客的创建</h2><h3 id="初始化项目"><a href="#初始化项目" class="headerlink" title="初始化项目"></a>初始化项目</h3>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#init后的名字可以随便起，不会有有什么影响</span></span><br><span class="line">hexo init deathswaltz.github.io</span><br><span class="line"><span class="built_in">cd</span> deathswaltz.github.io</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
 <p>  init后面是项目的名字，这样就会生成一个deathswaltz.github.io的文件夹</p>
 <h3 id="基础配置"><a href="#基础配置" class="headerlink" title="基础配置"></a>基础配置</h3><p>  打开创建出文件夹下的_config.yml文件进行配置，可以使用sublime text，这是个非常好用的编辑器<br>  <figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#博客名字</span></span><br><span class="line">title: Hexo</span><br><span class="line"><span class="comment">#子标题</span></span><br><span class="line">subtitle:</span><br><span class="line"><span class="comment">#博客描述</span></span><br><span class="line">description:</span><br><span class="line"><span class="comment">#作者名字</span></span><br><span class="line">author: deathswaltz</span><br><span class="line"><span class="comment">#语言</span></span><br><span class="line">language: zh-Hans</span><br><span class="line"><span class="comment">#头像</span></span><br><span class="line">avatar: https:<span class="regexp">//</span>avatars0.githubusercontent.com/u/<span class="number">10008846</span>?v=<span class="number">3</span>&amp;s=<span class="number">460</span></span><br><span class="line"><span class="comment">#主题</span></span><br><span class="line">theme: next</span><br><span class="line"></span><br><span class="line">deploy:</span><br><span class="line">  <span class="comment">#使用Git发布</span></span><br><span class="line">  type: git</span><br><span class="line">  <span class="comment">#仓库地址</span></span><br><span class="line">  repository: https:<span class="regexp">//gi</span>thub.com/DeathsWaltz/DeathsWaltz.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure></p>
 <p>  其实到现在博客差不多已经搭建的好了<br>  现在可以执行下列命令来在本地运行起来<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure></p>
@@ -158,7 +160,11 @@
 <p>  发布到Github上之后可以使用刚才创建的仓库名来访问，如：<a href="http://deathswaltz.github.io" target="_blank" rel="noopener">deathswaltz.github.io</a></p>
 <h3 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h3><blockquote>
 <p>hexo的默认主题是landscape，个人觉得这个主题并不怎么好看，所以使用next主题。<br>  在git bash 执行git clone <a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">https://github.com/iissnan/hexo-theme-next</a> themes/next,这样即可进行next主题下载</p>
+</blockquote>
+<blockquote>
 <p>下载完成后，在博客所在路径下的themes文件夹下面可以看到一个名为next的文件夹。要应用这个主题，需要我们修改站点配置文件_config.yml，注意这个_config.yml是themes/next下的不要和博客主目录下的弄混了，把之前的theme: landscape修改为theme: next。这时可以hexo   g和hexo s，然后在刷新浏览器就可以看到博客是next的主题了</p>
+</blockquote>
+<blockquote>
 <p>NexT 通过 Scheme 提供主题中的主题。 Mist 是 NexT 的第一款 Scheme。启用 Mist 仅需在 主题配置文件 中将 #scheme: Mist 前面的 # 注释去掉即可。</p>
 </blockquote>
 <p> 菜单配置在 主题配置文件 的 menu。 若站点运行在子目录中，请将链接前缀的 / 去掉。默认支持的菜单项有：<br>  <figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">home: /</span><br><span class="line">archives: /archives</span><br><span class="line"><span class="comment">#about: /about</span></span><br><span class="line"><span class="comment">#categories: /categories</span></span><br><span class="line">tags: /tags</span><br><span class="line"><span class="comment">#commonweal: /404.html</span></span><br></pre></td></tr></table></figure></p>
@@ -171,6 +177,7 @@
 </li>
 <li><p>编辑刚新建的页面，将页面的类型设置为 categories ，主题将自动为这个页面显示所有分类。</p>
 <figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">title: 分类</span><br><span class="line">date: <span class="number">2014</span><span class="number">-12</span><span class="number">-22</span> <span class="number">12</span>:<span class="number">39</span>:<span class="number">04</span></span><br><span class="line">type: <span class="string">"categories"</span></span><br></pre></td></tr></table></figure>
+
 </li>
 </ol>
 <h3 id="创建标签云页面"><a href="#创建标签云页面" class="headerlink" title="创建标签云页面"></a>创建标签云页面</h3><p>添加一个标签云页面，并在菜单中显示页面链接。</p>
@@ -184,7 +191,9 @@
 <li><p>在菜单中添加链接。编辑主题的 _config.yml ，添加 tags 到 menu 中。</p>
 </li>
 </ol>
-<h3 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h3><p>在需要显示摘要的地方添加如下代码即可：<br><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">以上是摘要</span><br><span class="line">&lt;!--more-- &gt;</span><br><span class="line">以下是余下全文</span><br></pre></td></tr></table></figure></p>
+<h3 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h3><p>在需要显示摘要的地方添加如下代码即可：</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">以上是摘要</span><br><span class="line">&lt;!--more-- &gt;</span><br><span class="line">以下是余下全文</span><br></pre></td></tr></table></figure>
+
 <h2 id="其他配置"><a href="#其他配置" class="headerlink" title="其他配置"></a>其他配置</h2><h3 id="多说评论系统"><a href="#多说评论系统" class="headerlink" title="多说评论系统"></a>多说评论系统</h3><ul>
 <li><p>使用多说前需要先在 多说 创建一个站点。具体步骤如下：</p>
 <p>  登录后在首页选择 “我要安装”。<br>  创建站点，填写站点相关信息。多说域名 这一栏填写的即是你的 duoshuo_shortname。<br>  创建站点完成后在站点配置文件 中新增 duoshuo_shortname 字段，值设置成上一步中的值。</p>
@@ -224,7 +233,7 @@
   <li><a class="icon" href="http://reddit.com/submit?url=https://akapril.github.io/2016/06/17/build-blog/&title=使用Github Page和Hexo搭建个人博客"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
   <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://akapril.github.io/2016/06/17/build-blog/&title=使用Github Page和Hexo搭建个人博客"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
   <li><a class="icon" href="http://digg.com/submit?url=https://akapril.github.io/2016/06/17/build-blog/&title=使用Github Page和Hexo搭建个人博客"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://akapril.github.io/2016/06/17/build-blog/&name=使用Github Page和Hexo搭建个人博客&description=&lt;h2 id=&quot;安装环境&quot;&gt;&lt;a href=&quot;#安装环境&quot; class=&quot;headerlink&quot; title=&quot;安装环境&quot;&gt;&lt;/a&gt;安装环境&lt;/h2&gt;&lt;p&gt; 安装git和Node.js，&lt;a href=&quot;https://git-scm.com/downloads&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;git下载地址&lt;/a&gt;,&lt;a href=&quot;https://nodejs.org/en/download/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Node.js下载地址&lt;/a&gt;&lt;br&gt; 安装完成之后，就可进行hexo博客框架的安装&lt;br&gt;&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://akapril.github.io/2016/06/17/build-blog/&name=使用Github Page和Hexo搭建个人博客&description=&lt;h2 id=&#34;安装环境&#34;&gt;&lt;a href=&#34;#安装环境&#34; class=&#34;headerlink&#34; title=&#34;安装环境&#34;&gt;&lt;/a&gt;安装环境&lt;/h2&gt;&lt;p&gt; 安装git和Node.js，&lt;a href=&#34;https://git-scm.com/downloads&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;git下载地址&lt;/a&gt;,&lt;a href=&#34;https://nodejs.org/en/download/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Node.js下载地址&lt;/a&gt;&lt;br&gt; 安装完成之后，就可进行hexo博客框架的安装&lt;br&gt;&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang=en>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="依赖： pom.xml12345&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;com.baomidou&amp;lt;/groupId&amp;gt;    &amp;lt;artifactId&amp;gt;dynamic-datasource-spring-boot-starter&amp;lt;/artifactId&amp;gt;    &amp;lt;version&amp;gt;$&amp;#123;baomidou.versi">
+<meta name="keywords" content="springboot,多数据源">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring boot使用多数据源">
+<meta property="og:url" content="https://akapril.github.io/2019/09/11/use-multi-datasource/index.html">
+<meta property="og:site_name" content="Akapril&#39;s">
+<meta property="og:description" content="依赖： pom.xml12345&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;com.baomidou&amp;lt;/groupId&amp;gt;    &amp;lt;artifactId&amp;gt;dynamic-datasource-spring-boot-starter&amp;lt;/artifactId&amp;gt;    &amp;lt;version&amp;gt;$&amp;#123;baomidou.versi">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-09-11T08:51:41.071Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring boot使用多数据源">
+<meta name="twitter:description" content="依赖： pom.xml12345&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;com.baomidou&amp;lt;/groupId&amp;gt;    &amp;lt;artifactId&amp;gt;dynamic-datasource-spring-boot-starter&amp;lt;/artifactId&amp;gt;    &amp;lt;version&amp;gt;$&amp;#123;baomidou.versi">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Spring boot使用多数据源</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2019/09/11/use-mycat/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2019/09/11/change-themes/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://akapril.github.io/2019/09/11/use-multi-datasource/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://akapril.github.io/2019/09/11/use-multi-datasource/&text=Spring boot使用多数据源"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://akapril.github.io/2019/09/11/use-multi-datasource/&title=Spring boot使用多数据源"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://akapril.github.io/2019/09/11/use-multi-datasource/&is_video=false&description=Spring boot使用多数据源"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Spring boot使用多数据源&body=Check out this article: https://akapril.github.io/2019/09/11/use-multi-datasource/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://akapril.github.io/2019/09/11/use-multi-datasource/&title=Spring boot使用多数据源"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://akapril.github.io/2019/09/11/use-multi-datasource/&title=Spring boot使用多数据源"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://akapril.github.io/2019/09/11/use-multi-datasource/&title=Spring boot使用多数据源"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://akapril.github.io/2019/09/11/use-multi-datasource/&title=Spring boot使用多数据源"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://akapril.github.io/2019/09/11/use-multi-datasource/&name=Spring boot使用多数据源&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#依赖：-pom-xml"><span class="toc-number">1.</span> <span class="toc-text">依赖： pom.xml</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数据源配置：-application-yml"><span class="toc-number">2.</span> <span class="toc-text">数据源配置： application.yml</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ServiceImpl"><span class="toc-number">3.</span> <span class="toc-text">ServiceImpl</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Spring boot使用多数据源
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Akapril's</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-09-11T07:56:39.000Z" itemprop="datePublished">2019-09-11</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/springboot/">springboot</a>, <a class="tag-link" href="/tags/多数据源/">多数据源</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h4 id="依赖：-pom-xml"><a href="#依赖：-pom-xml" class="headerlink" title="依赖： pom.xml"></a>依赖： pom.xml</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dynamic-datasource-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;baomidou.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="数据源配置：-application-yml"><a href="#数据源配置：-application-yml" class="headerlink" title="数据源配置： application.yml"></a>数据源配置： application.yml</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  datasource:</span></span><br><span class="line"><span class="attr">    dynamic:</span></span><br><span class="line"><span class="attr">      datasource:</span></span><br><span class="line"><span class="attr">        master:</span></span><br><span class="line"><span class="attr">          driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line"><span class="attr">          url:</span> <span class="attr">jdbc:mysql://129.xx.xx.xx:3306/jiahua?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false</span></span><br><span class="line"><span class="attr">          username:</span> <span class="string">xxxx</span></span><br><span class="line"><span class="attr">          password:</span> <span class="string">xxxx</span></span><br><span class="line"><span class="attr">        slave:</span></span><br><span class="line"><span class="attr">          driver-class-name:</span> <span class="string">com.microsoft.sqlserver.jdbc.SQLServerDriver</span></span><br><span class="line"><span class="attr">          url:</span> <span class="attr">jdbc:sqlserver://192.168.xx.xx:1433;</span> <span class="string">DatabaseName=xxx1</span></span><br><span class="line"><span class="attr">          username:</span> <span class="string">xxxx</span></span><br><span class="line"><span class="attr">          password:</span> <span class="string">xxxx</span></span><br><span class="line"><span class="attr">        slave1:</span></span><br><span class="line"><span class="attr">          driver-class-name:</span> <span class="string">com.microsoft.sqlserver.jdbc.SQLServerDriver</span></span><br><span class="line"><span class="attr">          url:</span> <span class="attr">jdbc:sqlserver://192.168.xx.xx:1433;</span> <span class="string">DatabaseName=xxx2</span></span><br><span class="line"><span class="attr">          username:</span> <span class="string">xxxx</span></span><br><span class="line"><span class="attr">          password:</span> <span class="string">xxxx</span></span><br><span class="line"><span class="attr">      mp-enabled:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="ServiceImpl"><a href="#ServiceImpl" class="headerlink" title="ServiceImpl"></a>ServiceImpl</h4><p>@DS: 注解在类上或方法上来切换数据源，方法上的@DS优先级大于类上的@DS<br>默认走从库: @DS(value = “slave”)在类上，默认走从库，除非在方法在添加@DS(value = “master”)才走主库</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="meta">@DS</span>(value = <span class="string">"slave"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ItemServiceImpl</span> <span class="keyword">extends</span> <span class="title">ServiceImpl</span>&lt;<span class="title">ItemMapper</span>, <span class="title">Item</span>&gt; <span class="keyword">implements</span> <span class="title">ItemService</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 类上 &#123;<span class="doctag">@code</span> <span class="doctag">@DS</span>("slave")&#125; 代表默认从库，在方法上写 &#123;<span class="doctag">@code</span> <span class="doctag">@DS</span>("master")&#125; 代表默认主库</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> user 用户</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@DS</span>(<span class="string">"master"</span>)</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addUser</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">        baseMapper.insert(user);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#依赖：-pom-xml"><span class="toc-number">1.</span> <span class="toc-text">依赖： pom.xml</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数据源配置：-application-yml"><span class="toc-number">2.</span> <span class="toc-text">数据源配置： application.yml</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ServiceImpl"><span class="toc-number">3.</span> <span class="toc-text">ServiceImpl</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://akapril.github.io/2019/09/11/use-multi-datasource/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://akapril.github.io/2019/09/11/use-multi-datasource/&text=Spring boot使用多数据源"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://akapril.github.io/2019/09/11/use-multi-datasource/&title=Spring boot使用多数据源"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://akapril.github.io/2019/09/11/use-multi-datasource/&is_video=false&description=Spring boot使用多数据源"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Spring boot使用多数据源&body=Check out this article: https://akapril.github.io/2019/09/11/use-multi-datasource/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://akapril.github.io/2019/09/11/use-multi-datasource/&title=Spring boot使用多数据源"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://akapril.github.io/2019/09/11/use-multi-datasource/&title=Spring boot使用多数据源"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://akapril.github.io/2019/09/11/use-multi-datasource/&title=Spring boot使用多数据源"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://akapril.github.io/2019/09/11/use-multi-datasource/&title=Spring boot使用多数据源"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://akapril.github.io/2019/09/11/use-multi-datasource/&name=Spring boot使用多数据源&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 Akapril
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<!-- clipboard -->
+
+  <script src="/lib/clipboard/clipboard.min.js"></script>
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight .code pre").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
