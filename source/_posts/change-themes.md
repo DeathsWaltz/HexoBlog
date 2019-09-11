@@ -44,6 +44,9 @@ nav:
 
 social_links:
   github: http://github.com/akapril
+  
+posts_overview:
+  show_all_posts: true
 ```
 
 #### 配置搜索

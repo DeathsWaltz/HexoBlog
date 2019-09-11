@@ -15,7 +15,7 @@ tags: [mycat,database,sharding-jdbc,分库分表,sqlserver]
 
 
 
-### 2.Sharding-jdbc方案
+### Sharding-jdbc方案
 
 #### 项目配置
 
@@ -94,14 +94,14 @@ public class DataSourceShardingConfig {
         // 配置第一个数据源
         HikariDataSource ds0 = new HikariDataSource();
         ds0.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        ds0.setJdbcUrl("jdbc:sqlserver://192.168.2.96:1433; DatabaseName=XXXX1");
+        ds0.setJdbcUrl("jdbc:sqlserver://192.168.xx.xx:1433; DatabaseName=XXXX1");
         ds0.setUsername("XXXX");
         ds0.setPassword("XXXX");
 
         // 配置第二个数据源
         HikariDataSource ds1 = new HikariDataSource();
         ds1.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        ds1.setJdbcUrl("jdbc:sqlserver://192.168.2.96:1433; DatabaseName=XXXX2");
+        ds1.setJdbcUrl("jdbc:sqlserver://192.168.xx.xx:1433; DatabaseName=XXXX2");
         ds1.setUsername("XXXX");
         ds1.setPassword("XXXX");
 
@@ -139,7 +139,7 @@ org.springframework.dao.InvalidDataAccessApiUsageException: Error attempting to 
 
 
 
-### 3.Mycat方案
+### Mycat方案
 
 mycat官网 [http://mycat.io/](http://mycat.io/)
 

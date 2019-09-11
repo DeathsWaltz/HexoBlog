@@ -10,6 +10,7 @@ categories: [学习]
  安装完成之后，就可进行hexo博客框架的安装
    <!--more-->
  这些都在本地完成的
+
  ```bash
  npm install -g hexo-cli
  ```
