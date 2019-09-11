@@ -1,978 +1,202 @@
-<!doctype html>
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
-  
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
+<meta name="description" content="使用Github Page和Hexo搭建个人博客"><meta name="keywords" content="Hexo, 博客, Node.js, Akapril's"><link rel="alternate" href="/default" title="Akapril's"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0">
+<link rel="canonical" href="https://akapril.github.io/2016/06/17/build-blog/">
 
-<html class="theme-next mist use-motion">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css"><link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css">
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0">
 
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<link rel="canonical" href=" { { site.url } }{ { page.url } }" />
- <script type="text/javascript">
-    var host = "azrael.link";
-    if ((host == window.location.host) && (window.location.protocol != "https:"))
-        window.location.protocol = "https";
-</script>
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
-
-
-
-
-
-
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="Hexo,博客,Node.js," />
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="deathswaltz的学习笔记" type="application/atom+xml" />
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
-
-
-
-
-
-
-<meta name="description" content="&amp;#x5B89;&amp;#x88C5;&amp;#x73AF;&amp;#x5883; &amp;#x5B89;&amp;#x88C5;git&amp;#x548C;Node.js&amp;#xFF0C;git&amp;#x4E0B;&amp;#x8F7D;&amp;#x5730;&amp;#x5740;,Node.js&amp;#x4E0B;&amp;#x8F7D;&amp;#x5730;&amp;#x5740; &amp;#x5B89;&amp;#x88C5;&amp;#x5B8C;&amp;#x6210;&amp;#x4E4B;&amp;#x540E;&amp;">
-<meta property="og:type" content="article">
-<meta property="og:title" content="使用Github Page和Hexo搭建个人博客">
-<meta property="og:url" content="https://deathswaltz.github.io/2016/06/17/build-blog/index.html">
-<meta property="og:site_name" content="deathswaltz的学习笔记">
-<meta property="og:description" content="&amp;#x5B89;&amp;#x88C5;&amp;#x73AF;&amp;#x5883; &amp;#x5B89;&amp;#x88C5;git&amp;#x548C;Node.js&amp;#xFF0C;git&amp;#x4E0B;&amp;#x8F7D;&amp;#x5730;&amp;#x5740;,Node.js&amp;#x4E0B;&amp;#x8F7D;&amp;#x5730;&amp;#x5740; &amp;#x5B89;&amp;#x88C5;&amp;#x5B8C;&amp;#x6210;&amp;#x4E4B;&amp;#x540E;&amp;">
-<meta property="og:image" content="https://deathswaltz.github.io/2016/06/17/build-blog/Githubpicture.png">
-<meta property="og:updated_time" content="2019-02-19T14:50:25.821Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用Github Page和Hexo搭建个人博客">
-<meta name="twitter:description" content="&amp;#x5B89;&amp;#x88C5;&amp;#x73AF;&amp;#x5883; &amp;#x5B89;&amp;#x88C5;git&amp;#x548C;Node.js&amp;#xFF0C;git&amp;#x4E0B;&amp;#x8F7D;&amp;#x5730;&amp;#x5740;,Node.js&amp;#x4E0B;&amp;#x8F7D;&amp;#x5730;&amp;#x5740; &amp;#x5B89;&amp;#x88C5;&amp;#x5B8C;&amp;#x6210;&amp;#x4E4B;&amp;#x540E;&amp;">
-<meta name="twitter:image" content="https://deathswaltz.github.io/2016/06/17/build-blog/Githubpicture.png">
-
-
-<script type="text/javascript">
-    var host = "www.deathsw.com";
-    if ((host == window.location.host) && (window.location.protocol != "https:"))
-        window.location.protocol = "https";
-</script>
-
-
-<script type="text/javascript" id="hexo.configuration">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    scheme: 'Mist',
-    sidebar: {"position":"left","display":"post"},
-    fancybox: true,
-    motion: true,
-    duoshuo: {
-      userId: 0,
-      author: '博主'
+<script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
     }
-  };
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true,"latex":false};
 </script>
 
+    <title>使用Github Page和Hexo搭建个人博客 - Akapril's</title>
+  </head>
 
-
-
-  <link rel="canonical" href="https://deathswaltz.github.io/2016/06/17/build-blog/"/>
-
-  <title> 使用Github Page和Hexo搭建个人博客 | deathswaltz的学习笔记 </title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-
-
-
-
-
-
-
-
-
-
-  
-  
-    
-  
-
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-meta ">
-  
-
-  <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <span class="site-title">deathswaltz的学习笔记</span>
-      <span class="logo-line-after"><i></i></span>
-    </a>
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Akapril's</a>
   </div>
-  <p class="site-subtitle"></p>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 </div>
 
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
-</div>
-
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="#" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
-            
-            搜索
-          </a>
-        </li>
-      
-    </ul>
-  
-
-  
-    <div class="site-search">
-      
-  <div class="popup">
- <span class="search-icon fa fa-search"></span>
- <input type="text" id="local-search-input">
- <div id="local-search-result"></div>
- <span class="popup-btn-close">close</span>
-</div>
-
-
-    </div>
-  
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">首页
+          </li>
+      </a></ul>
 </nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Akapril's</a>
+</div>
 
- </div>
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            首页
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">使用Github Page和Hexo搭建个人博客
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016-06-17
+        </span><span class="post-category">
+            <a href="/categories/学习/">学习</a>
+            </span>
+        </div>
     </header>
 
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
-    
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                使用Github Page和Hexo搭建个人博客
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-17T18:59:02+08:00" content="2016-06-17">
-              2016-06-17
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/学习/" itemprop="url" rel="index">
-                    <span itemprop="name">学习</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/06/17/build-blog/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/17/build-blog/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-             <span id="/2016/06/17/build-blog/" class="leancloud_visitors" data-flag-title="使用Github Page和Hexo搭建个人博客">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h2 id="&#x5B89;&#x88C5;&#x73AF;&#x5883;"><a href="#&#x5B89;&#x88C5;&#x73AF;&#x5883;" class="headerlink" title="&#x5B89;&#x88C5;&#x73AF;&#x5883;"></a>&#x5B89;&#x88C5;&#x73AF;&#x5883;</h2><p> &#x5B89;&#x88C5;git&#x548C;Node.js&#xFF0C;<a href="https://git-scm.com/downloads" target="_blank" rel="external">git&#x4E0B;&#x8F7D;&#x5730;&#x5740;</a>,<a href="https://nodejs.org/en/download/" target="_blank" rel="external">Node.js&#x4E0B;&#x8F7D;&#x5730;&#x5740;</a><br> &#x5B89;&#x88C5;&#x5B8C;&#x6210;&#x4E4B;&#x540E;&#xFF0C;&#x5C31;&#x53EF;&#x8FDB;&#x884C;hexo&#x535A;&#x5BA2;&#x6846;&#x67B6;&#x7684;&#x5B89;&#x88C5;<br>   <a id="more"></a><br> &#x8FD9;&#x4E9B;&#x90FD;&#x5728;&#x672C;&#x5730;&#x5B8C;&#x6210;&#x7684;<br> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure></p>
-<p> &#x6267;&#x884C;&#x5B8C;&#x6210;&#x4E4B;&#x540E;hexo&#x5C31;&#x5B89;&#x88C5;&#x6210;&#x529F;&#x4E86;&#xFF0C;&#x7B2C;&#x4E00;&#x6B65;&#x7ED3;&#x675F;&#xFF0C;&#x73AF;&#x5883;&#x914D;&#x7F6E;&#x5B8C;&#x6BD5;&#x5C31;&#x53EF;&#x4EE5;&#x5F00;&#x59CB;&#x521B;&#x5EFA;&#x81EA;&#x5DF1;&#x7684;&#x535A;&#x5BA2;&#x4E86;</p>
-<h2 id="Github&#x4E0A;&#x521B;&#x5EFA;&#x4ED3;&#x5E93;"><a href="#Github&#x4E0A;&#x521B;&#x5EFA;&#x4ED3;&#x5E93;" class="headerlink" title="Github&#x4E0A;&#x521B;&#x5EFA;&#x4ED3;&#x5E93;"></a>Github&#x4E0A;&#x521B;&#x5EFA;&#x4ED3;&#x5E93;</h2><p> &#x521B;&#x5EFA;&#x4E0E;&#x7528;&#x6237;&#x540D;&#x5BF9;&#x5E94;&#x7684;&#x4ED3;&#x5E93;&#xFF0C;&#x4ED3;&#x5E93;&#x540D;&#x4E3A;your_user_name.github.io(your_user_name.github.com&#x7684;&#x597D;&#x50CF;&#x4E5F;&#x53EF;&#x4EE5;)<br> <img src="/2016/06/17/build-blog/Githubpicture.png" alt="Github"></p>
-<h2 id="&#x535A;&#x5BA2;&#x7684;&#x521B;&#x5EFA;"><a href="#&#x535A;&#x5BA2;&#x7684;&#x521B;&#x5EFA;" class="headerlink" title="&#x535A;&#x5BA2;&#x7684;&#x521B;&#x5EFA;"></a>&#x535A;&#x5BA2;&#x7684;&#x521B;&#x5EFA;</h2><h3 id="&#x521D;&#x59CB;&#x5316;&#x9879;&#x76EE;"><a href="#&#x521D;&#x59CB;&#x5316;&#x9879;&#x76EE;" class="headerlink" title="&#x521D;&#x59CB;&#x5316;&#x9879;&#x76EE;"></a>&#x521D;&#x59CB;&#x5316;&#x9879;&#x76EE;</h3>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#init&#x540E;&#x7684;&#x540D;&#x5B57;&#x53EF;&#x4EE5;&#x968F;&#x4FBF;&#x8D77;&#xFF0C;&#x4E0D;&#x4F1A;&#x6709;&#x6709;&#x4EC0;&#x4E48;&#x5F71;&#x54CD;</span></span><br><span class="line">hexo init deathswaltz.github.io</span><br><span class="line"><span class="built_in">cd</span> deathswaltz.github.io</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
-<p>  init&#x540E;&#x9762;&#x662F;&#x9879;&#x76EE;&#x7684;&#x540D;&#x5B57;&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x4F1A;&#x751F;&#x6210;&#x4E00;&#x4E2A;deathswaltz.github.io&#x7684;&#x6587;&#x4EF6;&#x5939;</p>
-<h3 id="&#x57FA;&#x7840;&#x914D;&#x7F6E;"><a href="#&#x57FA;&#x7840;&#x914D;&#x7F6E;" class="headerlink" title="&#x57FA;&#x7840;&#x914D;&#x7F6E;"></a>&#x57FA;&#x7840;&#x914D;&#x7F6E;</h3><p>  &#x6253;&#x5F00;&#x521B;&#x5EFA;&#x51FA;&#x6587;&#x4EF6;&#x5939;&#x4E0B;&#x7684;_config.yml&#x6587;&#x4EF6;&#x8FDB;&#x884C;&#x914D;&#x7F6E;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;sublime text&#xFF0C;&#x8FD9;&#x662F;&#x4E2A;&#x975E;&#x5E38;&#x597D;&#x7528;&#x7684;&#x7F16;&#x8F91;&#x5668;<br>  <figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#&#x535A;&#x5BA2;&#x540D;&#x5B57;</span></span><br><span class="line">title: Hexo</span><br><span class="line"><span class="comment">#&#x5B50;&#x6807;&#x9898;</span></span><br><span class="line">subtitle:</span><br><span class="line"><span class="comment">#&#x535A;&#x5BA2;&#x63CF;&#x8FF0;</span></span><br><span class="line">description:</span><br><span class="line"><span class="comment">#&#x4F5C;&#x8005;&#x540D;&#x5B57;</span></span><br><span class="line">author: deathswaltz</span><br><span class="line"><span class="comment">#&#x8BED;&#x8A00;</span></span><br><span class="line">language: zh-Hans</span><br><span class="line"><span class="comment">#&#x5934;&#x50CF;</span></span><br><span class="line">avatar: https:<span class="regexp">//</span>avatars0.githubusercontent.com/u/<span class="number">10008846</span>?v=<span class="number">3</span>&amp;s=<span class="number">460</span></span><br><span class="line"><span class="comment">#&#x4E3B;&#x9898;</span></span><br><span class="line">theme: next</span><br><span class="line"></span><br><span class="line">deploy:</span><br><span class="line">  <span class="comment">#&#x4F7F;&#x7528;Git&#x53D1;&#x5E03;</span></span><br><span class="line">  type: git</span><br><span class="line">  <span class="comment">#&#x4ED3;&#x5E93;&#x5730;&#x5740;</span></span><br><span class="line">  repository: https:<span class="regexp">//gi</span>thub.com/DeathsWaltz/DeathsWaltz.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure></p>
-<p>  &#x5176;&#x5B9E;&#x5230;&#x73B0;&#x5728;&#x535A;&#x5BA2;&#x5DEE;&#x4E0D;&#x591A;&#x5DF2;&#x7ECF;&#x642D;&#x5EFA;&#x7684;&#x597D;&#x4E86;<br>  &#x73B0;&#x5728;&#x53EF;&#x4EE5;&#x6267;&#x884C;&#x4E0B;&#x5217;&#x547D;&#x4EE4;&#x6765;&#x5728;&#x672C;&#x5730;&#x8FD0;&#x884C;&#x8D77;&#x6765;<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure></p>
-<p>  &#x7136;&#x540E;&#x518D;&#x6D4F;&#x89C8;&#x5668;&#x901A;&#x8FC7;<a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a>&#x6765;&#x8FDB;&#x884C;&#x8BBF;&#x95EE;</p>
-<p>   &#x53D1;&#x5E03;&#x5230;Github&#x4E0A;&#x4F7F;&#x7528;&#x4EE5;&#x4E0B;&#x547D;&#x4EE4;&#xFF1A;<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure></p>
-<p>  &#x6216;&#x8005;<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo d -g</span><br></pre></td></tr></table></figure></p>
-<p>  &#x53D1;&#x5E03;&#x5230;Github&#x4E0A;&#x4E4B;&#x540E;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x521A;&#x624D;&#x521B;&#x5EFA;&#x7684;&#x4ED3;&#x5E93;&#x540D;&#x6765;&#x8BBF;&#x95EE;&#xFF0C;&#x5982;&#xFF1A;<a href="http://deathswaltz.github.io">deathswaltz.github.io</a></p>
-<h3 id="&#x5B89;&#x88C5;&#x4E3B;&#x9898;"><a href="#&#x5B89;&#x88C5;&#x4E3B;&#x9898;" class="headerlink" title="&#x5B89;&#x88C5;&#x4E3B;&#x9898;"></a>&#x5B89;&#x88C5;&#x4E3B;&#x9898;</h3><blockquote>
-<p>hexo&#x7684;&#x9ED8;&#x8BA4;&#x4E3B;&#x9898;&#x662F;landscape&#xFF0C;&#x4E2A;&#x4EBA;&#x89C9;&#x5F97;&#x8FD9;&#x4E2A;&#x4E3B;&#x9898;&#x5E76;&#x4E0D;&#x600E;&#x4E48;&#x597D;&#x770B;&#xFF0C;&#x6240;&#x4EE5;&#x4F7F;&#x7528;next&#x4E3B;&#x9898;&#x3002;<br>  &#x5728;git bash &#x6267;&#x884C;git clone <a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="external">https://github.com/iissnan/hexo-theme-next</a> themes/next,&#x8FD9;&#x6837;&#x5373;&#x53EF;&#x8FDB;&#x884C;next&#x4E3B;&#x9898;&#x4E0B;&#x8F7D;</p>
-<p>&#x4E0B;&#x8F7D;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x5728;&#x535A;&#x5BA2;&#x6240;&#x5728;&#x8DEF;&#x5F84;&#x4E0B;&#x7684;themes&#x6587;&#x4EF6;&#x5939;&#x4E0B;&#x9762;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x4E00;&#x4E2A;&#x540D;&#x4E3A;next&#x7684;&#x6587;&#x4EF6;&#x5939;&#x3002;&#x8981;&#x5E94;&#x7528;&#x8FD9;&#x4E2A;&#x4E3B;&#x9898;&#xFF0C;&#x9700;&#x8981;&#x6211;&#x4EEC;&#x4FEE;&#x6539;&#x7AD9;&#x70B9;&#x914D;&#x7F6E;&#x6587;&#x4EF6;_config.yml&#xFF0C;&#x6CE8;&#x610F;&#x8FD9;&#x4E2A;_config.yml&#x662F;themes/next&#x4E0B;&#x7684;&#x4E0D;&#x8981;&#x548C;&#x535A;&#x5BA2;&#x4E3B;&#x76EE;&#x5F55;&#x4E0B;&#x7684;&#x5F04;&#x6DF7;&#x4E86;&#xFF0C;&#x628A;&#x4E4B;&#x524D;&#x7684;theme: landscape&#x4FEE;&#x6539;&#x4E3A;theme: next&#x3002;&#x8FD9;&#x65F6;&#x53EF;&#x4EE5;hexo   g&#x548C;hexo s&#xFF0C;&#x7136;&#x540E;&#x5728;&#x5237;&#x65B0;&#x6D4F;&#x89C8;&#x5668;&#x5C31;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x535A;&#x5BA2;&#x662F;next&#x7684;&#x4E3B;&#x9898;&#x4E86;</p>
-<p>NexT &#x901A;&#x8FC7; Scheme &#x63D0;&#x4F9B;&#x4E3B;&#x9898;&#x4E2D;&#x7684;&#x4E3B;&#x9898;&#x3002; Mist &#x662F; NexT &#x7684;&#x7B2C;&#x4E00;&#x6B3E; Scheme&#x3002;&#x542F;&#x7528; Mist &#x4EC5;&#x9700;&#x5728; &#x4E3B;&#x9898;&#x914D;&#x7F6E;&#x6587;&#x4EF6; &#x4E2D;&#x5C06; #scheme: Mist &#x524D;&#x9762;&#x7684; # &#x6CE8;&#x91CA;&#x53BB;&#x6389;&#x5373;&#x53EF;&#x3002;</p>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装环境"><span class="toc-text">安装环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Github上创建仓库"><span class="toc-text">Github上创建仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#博客的创建"><span class="toc-text">博客的创建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#初始化项目"><span class="toc-text">初始化项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基础配置"><span class="toc-text">基础配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装主题"><span class="toc-text">安装主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建-“关于我”-页面"><span class="toc-text">创建 “关于我” 页面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建分类页面"><span class="toc-text">创建分类页面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建标签云页面"><span class="toc-text">创建标签云页面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文章摘要"><span class="toc-text">文章摘要</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他配置"><span class="toc-text">其他配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#多说评论系统"><span class="toc-text">多说评论系统</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h2 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h2><p> 安装git和Node.js，<a href="https://git-scm.com/downloads" target="_blank" rel="noopener">git下载地址</a>,<a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">Node.js下载地址</a><br> 安装完成之后，就可进行hexo博客框架的安装<br>   <a id="more"></a><br> 这些都在本地完成的<br> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure></p>
+<p> 执行完成之后hexo就安装成功了，第一步结束，环境配置完毕就可以开始创建自己的博客了</p>
+<h2 id="Github上创建仓库"><a href="#Github上创建仓库" class="headerlink" title="Github上创建仓库"></a>Github上创建仓库</h2><p> 创建与用户名对应的仓库，仓库名为your_user_name.github.io(your_user_name.github.com的好像也可以)<br> <img src="/2016/06/17/build-blog/Githubpicture.png" alt="Github"></p>
+<h2 id="博客的创建"><a href="#博客的创建" class="headerlink" title="博客的创建"></a>博客的创建</h2><h3 id="初始化项目"><a href="#初始化项目" class="headerlink" title="初始化项目"></a>初始化项目</h3>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#init后的名字可以随便起，不会有有什么影响</span></span><br><span class="line">hexo init deathswaltz.github.io</span><br><span class="line"><span class="built_in">cd</span> deathswaltz.github.io</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<p>  init后面是项目的名字，这样就会生成一个deathswaltz.github.io的文件夹</p>
+<h3 id="基础配置"><a href="#基础配置" class="headerlink" title="基础配置"></a>基础配置</h3><p>  打开创建出文件夹下的_config.yml文件进行配置，可以使用sublime text，这是个非常好用的编辑器<br>  <figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#博客名字</span></span><br><span class="line">title: Hexo</span><br><span class="line"><span class="comment">#子标题</span></span><br><span class="line">subtitle:</span><br><span class="line"><span class="comment">#博客描述</span></span><br><span class="line">description:</span><br><span class="line"><span class="comment">#作者名字</span></span><br><span class="line">author: deathswaltz</span><br><span class="line"><span class="comment">#语言</span></span><br><span class="line">language: zh-Hans</span><br><span class="line"><span class="comment">#头像</span></span><br><span class="line">avatar: https:<span class="regexp">//</span>avatars0.githubusercontent.com/u/<span class="number">10008846</span>?v=<span class="number">3</span>&amp;s=<span class="number">460</span></span><br><span class="line"><span class="comment">#主题</span></span><br><span class="line">theme: next</span><br><span class="line"></span><br><span class="line">deploy:</span><br><span class="line">  <span class="comment">#使用Git发布</span></span><br><span class="line">  type: git</span><br><span class="line">  <span class="comment">#仓库地址</span></span><br><span class="line">  repository: https:<span class="regexp">//gi</span>thub.com/DeathsWaltz/DeathsWaltz.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure></p>
+<p>  其实到现在博客差不多已经搭建的好了<br>  现在可以执行下列命令来在本地运行起来<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure></p>
+<p>  然后再浏览器通过<a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a>来进行访问</p>
+<p>   发布到Github上使用以下命令：<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure></p>
+<p>  或者<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo d -g</span><br></pre></td></tr></table></figure></p>
+<p>  发布到Github上之后可以使用刚才创建的仓库名来访问，如：<a href="http://deathswaltz.github.io" target="_blank" rel="noopener">deathswaltz.github.io</a></p>
+<h3 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h3><blockquote>
+<p>hexo的默认主题是landscape，个人觉得这个主题并不怎么好看，所以使用next主题。<br>  在git bash 执行git clone <a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">https://github.com/iissnan/hexo-theme-next</a> themes/next,这样即可进行next主题下载</p>
+<p>下载完成后，在博客所在路径下的themes文件夹下面可以看到一个名为next的文件夹。要应用这个主题，需要我们修改站点配置文件_config.yml，注意这个_config.yml是themes/next下的不要和博客主目录下的弄混了，把之前的theme: landscape修改为theme: next。这时可以hexo   g和hexo s，然后在刷新浏览器就可以看到博客是next的主题了</p>
+<p>NexT 通过 Scheme 提供主题中的主题。 Mist 是 NexT 的第一款 Scheme。启用 Mist 仅需在 主题配置文件 中将 #scheme: Mist 前面的 # 注释去掉即可。</p>
 </blockquote>
-<p> &#x83DC;&#x5355;&#x914D;&#x7F6E;&#x5728; &#x4E3B;&#x9898;&#x914D;&#x7F6E;&#x6587;&#x4EF6; &#x7684; menu&#x3002; &#x82E5;&#x7AD9;&#x70B9;&#x8FD0;&#x884C;&#x5728;&#x5B50;&#x76EE;&#x5F55;&#x4E2D;&#xFF0C;&#x8BF7;&#x5C06;&#x94FE;&#x63A5;&#x524D;&#x7F00;&#x7684; / &#x53BB;&#x6389;&#x3002;&#x9ED8;&#x8BA4;&#x652F;&#x6301;&#x7684;&#x83DC;&#x5355;&#x9879;&#x6709;&#xFF1A;<br>  <figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">home: /</span><br><span class="line">archives: /archives</span><br><span class="line"><span class="comment">#about: /about</span></span><br><span class="line"><span class="comment">#categories: /categories</span></span><br><span class="line">tags: /tags</span><br><span class="line"><span class="comment">#commonweal: /404.html</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="&#x521B;&#x5EFA;-&#x201C;&#x5173;&#x4E8E;&#x6211;&#x201D;-&#x9875;&#x9762;"><a href="#&#x521B;&#x5EFA;-&#x201C;&#x5173;&#x4E8E;&#x6211;&#x201D;-&#x9875;&#x9762;" class="headerlink" title="&#x521B;&#x5EFA; &#x201C;&#x5173;&#x4E8E;&#x6211;&#x201D; &#x9875;&#x9762;"></a>&#x521B;&#x5EFA; &#x201C;&#x5173;&#x4E8E;&#x6211;&#x201D; &#x9875;&#x9762;</h3><p>  &#x65B0;&#x5EFA;&#x4E00;&#x4E2A; about &#x9875;&#x9762;&#xFF1A;<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page <span class="string">&quot;about&quot;</span></span><br></pre></td></tr></table></figure></p>
-<p>  &#x83DC;&#x5355;&#x663E;&#x793A; about &#x94FE;&#x63A5;&#xFF0C;&#x5728;&#x4E3B;&#x9898;&#x7684; _configy.yml &#x8BBE;&#x7F6E;&#x4E2D;&#x5C06; menu &#x4E2D; about &#x524D;&#x9762;&#x7684;&#x6CE8;&#x91CA;&#x53BB;&#x6389;&#x5373;&#x53EF;&#x3002;</p>
-<h3 id="&#x521B;&#x5EFA;&#x5206;&#x7C7B;&#x9875;&#x9762;"><a href="#&#x521B;&#x5EFA;&#x5206;&#x7C7B;&#x9875;&#x9762;" class="headerlink" title="&#x521B;&#x5EFA;&#x5206;&#x7C7B;&#x9875;&#x9762;"></a>&#x521B;&#x5EFA;&#x5206;&#x7C7B;&#x9875;&#x9762;</h3><p>  &#x6DFB;&#x52A0;&#x4E00;&#x4E2A; &#x5206;&#x7C7B; &#x9875;&#x9762;&#xFF0C;&#x5E76;&#x5728;&#x83DC;&#x5355;&#x4E2D;&#x663E;&#x793A;&#x9875;&#x9762;&#x94FE;&#x63A5;&#x3002;</p>
+<p> 菜单配置在 主题配置文件 的 menu。 若站点运行在子目录中，请将链接前缀的 / 去掉。默认支持的菜单项有：<br>  <figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">home: /</span><br><span class="line">archives: /archives</span><br><span class="line"><span class="comment">#about: /about</span></span><br><span class="line"><span class="comment">#categories: /categories</span></span><br><span class="line">tags: /tags</span><br><span class="line"><span class="comment">#commonweal: /404.html</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="创建-“关于我”-页面"><a href="#创建-“关于我”-页面" class="headerlink" title="创建 “关于我” 页面"></a>创建 “关于我” 页面</h3><p>  新建一个 about 页面：<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page <span class="string">"about"</span></span><br></pre></td></tr></table></figure></p>
+<p>  菜单显示 about 链接，在主题的 _configy.yml 设置中将 menu 中 about 前面的注释去掉即可。</p>
+<h3 id="创建分类页面"><a href="#创建分类页面" class="headerlink" title="创建分类页面"></a>创建分类页面</h3><p>  添加一个 分类 页面，并在菜单中显示页面链接。</p>
 <ol>
-<li><p>&#x65B0;&#x5EFA;&#x4E00;&#x4E2A;&#x9875;&#x9762;&#xFF0C;&#x547D;&#x540D;&#x4E3A; categories &#x3002;&#x547D;&#x4EE4;&#x5982;&#x4E0B;&#xFF1A;</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page <span class="string">&quot;categories&quot;</span></span><br></pre></td></tr></table></figure>
+<li><p>新建一个页面，命名为 categories 。命令如下：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page <span class="string">"categories"</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>&#x7F16;&#x8F91;&#x521A;&#x65B0;&#x5EFA;&#x7684;&#x9875;&#x9762;&#xFF0C;&#x5C06;&#x9875;&#x9762;&#x7684;&#x7C7B;&#x578B;&#x8BBE;&#x7F6E;&#x4E3A; categories &#xFF0C;&#x4E3B;&#x9898;&#x5C06;&#x81EA;&#x52A8;&#x4E3A;&#x8FD9;&#x4E2A;&#x9875;&#x9762;&#x663E;&#x793A;&#x6240;&#x6709;&#x5206;&#x7C7B;&#x3002;</p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">title: &#x5206;&#x7C7B;</span><br><span class="line">date: <span class="number">2014</span><span class="number">-12</span><span class="number">-22</span> <span class="number">12</span>:<span class="number">39</span>:<span class="number">04</span></span><br><span class="line">type: <span class="string">&quot;categories&quot;</span></span><br></pre></td></tr></table></figure>
+<li><p>编辑刚新建的页面，将页面的类型设置为 categories ，主题将自动为这个页面显示所有分类。</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">title: 分类</span><br><span class="line">date: <span class="number">2014</span><span class="number">-12</span><span class="number">-22</span> <span class="number">12</span>:<span class="number">39</span>:<span class="number">04</span></span><br><span class="line">type: <span class="string">"categories"</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<h3 id="&#x521B;&#x5EFA;&#x6807;&#x7B7E;&#x4E91;&#x9875;&#x9762;"><a href="#&#x521B;&#x5EFA;&#x6807;&#x7B7E;&#x4E91;&#x9875;&#x9762;" class="headerlink" title="&#x521B;&#x5EFA;&#x6807;&#x7B7E;&#x4E91;&#x9875;&#x9762;"></a>&#x521B;&#x5EFA;&#x6807;&#x7B7E;&#x4E91;&#x9875;&#x9762;</h3><p>&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;&#x6807;&#x7B7E;&#x4E91;&#x9875;&#x9762;&#xFF0C;&#x5E76;&#x5728;&#x83DC;&#x5355;&#x4E2D;&#x663E;&#x793A;&#x9875;&#x9762;&#x94FE;&#x63A5;&#x3002;</p>
+<h3 id="创建标签云页面"><a href="#创建标签云页面" class="headerlink" title="创建标签云页面"></a>创建标签云页面</h3><p>添加一个标签云页面，并在菜单中显示页面链接。</p>
 <ol>
-<li><p>&#x65B0;&#x5EFA;&#x4E00;&#x4E2A;&#x9875;&#x9762;&#xFF0C;&#x547D;&#x540D;&#x4E3A; tags &#x3002;&#x547D;&#x4EE4;&#x5982;&#x4E0B;&#xFF1A;</p>
+<li><p>新建一个页面，命名为 tags 。命令如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page &quot;tags&quot;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>&#x7F16;&#x8F91;&#x521A;&#x65B0;&#x5EFA;&#x7684;&#x9875;&#x9762;&#xFF0C;&#x5C06;&#x9875;&#x9762;&#x7684;&#x7C7B;&#x578B;&#x8BBE;&#x7F6E;&#x4E3A; tags &#xFF0C;&#x4E3B;&#x9898;&#x5C06;&#x81EA;&#x52A8;&#x4E3A;&#x8FD9;&#x4E2A;&#x9875;&#x9762;&#x663E;&#x793A;&#x6807;&#x7B7E;&#x4E91;&#x3002;</p>
- <figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">title: All tags</span><br><span class="line">date: <span class="number">2014</span><span class="number">-12</span><span class="number">-22</span> <span class="number">12</span>:<span class="number">39</span>:<span class="number">04</span></span><br><span class="line">type: <span class="string">&quot;tags&quot;</span></span><br></pre></td></tr></table></figure>
+<li><p>编辑刚新建的页面，将页面的类型设置为 tags ，主题将自动为这个页面显示标签云。</p>
+ <figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">title: All tags</span><br><span class="line">date: <span class="number">2014</span><span class="number">-12</span><span class="number">-22</span> <span class="number">12</span>:<span class="number">39</span>:<span class="number">04</span></span><br><span class="line">type: <span class="string">"tags"</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>&#x5728;&#x83DC;&#x5355;&#x4E2D;&#x6DFB;&#x52A0;&#x94FE;&#x63A5;&#x3002;&#x7F16;&#x8F91;&#x4E3B;&#x9898;&#x7684; _config.yml &#xFF0C;&#x6DFB;&#x52A0; tags &#x5230; menu &#x4E2D;&#x3002;</p>
+<li><p>在菜单中添加链接。编辑主题的 _config.yml ，添加 tags 到 menu 中。</p>
 </li>
 </ol>
-<h3 id="&#x6587;&#x7AE0;&#x6458;&#x8981;"><a href="#&#x6587;&#x7AE0;&#x6458;&#x8981;" class="headerlink" title="&#x6587;&#x7AE0;&#x6458;&#x8981;"></a>&#x6587;&#x7AE0;&#x6458;&#x8981;</h3><p>&#x5728;&#x9700;&#x8981;&#x663E;&#x793A;&#x6458;&#x8981;&#x7684;&#x5730;&#x65B9;&#x6DFB;&#x52A0;&#x5982;&#x4E0B;&#x4EE3;&#x7801;&#x5373;&#x53EF;&#xFF1A;<br><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x4EE5;&#x4E0A;&#x662F;&#x6458;&#x8981;</span><br><span class="line">&lt;!--more-- &gt;</span><br><span class="line">&#x4EE5;&#x4E0B;&#x662F;&#x4F59;&#x4E0B;&#x5168;&#x6587;</span><br></pre></td></tr></table></figure></p>
-<h2 id="&#x5176;&#x4ED6;&#x914D;&#x7F6E;"><a href="#&#x5176;&#x4ED6;&#x914D;&#x7F6E;" class="headerlink" title="&#x5176;&#x4ED6;&#x914D;&#x7F6E;"></a>&#x5176;&#x4ED6;&#x914D;&#x7F6E;</h2><h3 id="&#x591A;&#x8BF4;&#x8BC4;&#x8BBA;&#x7CFB;&#x7EDF;"><a href="#&#x591A;&#x8BF4;&#x8BC4;&#x8BBA;&#x7CFB;&#x7EDF;" class="headerlink" title="&#x591A;&#x8BF4;&#x8BC4;&#x8BBA;&#x7CFB;&#x7EDF;"></a>&#x591A;&#x8BF4;&#x8BC4;&#x8BBA;&#x7CFB;&#x7EDF;</h3><ul>
-<li><p>&#x4F7F;&#x7528;&#x591A;&#x8BF4;&#x524D;&#x9700;&#x8981;&#x5148;&#x5728; &#x591A;&#x8BF4; &#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x7AD9;&#x70B9;&#x3002;&#x5177;&#x4F53;&#x6B65;&#x9AA4;&#x5982;&#x4E0B;&#xFF1A;</p>
-<p>  &#x767B;&#x5F55;&#x540E;&#x5728;&#x9996;&#x9875;&#x9009;&#x62E9; &#x201C;&#x6211;&#x8981;&#x5B89;&#x88C5;&#x201D;&#x3002;<br>  &#x521B;&#x5EFA;&#x7AD9;&#x70B9;&#xFF0C;&#x586B;&#x5199;&#x7AD9;&#x70B9;&#x76F8;&#x5173;&#x4FE1;&#x606F;&#x3002;&#x591A;&#x8BF4;&#x57DF;&#x540D; &#x8FD9;&#x4E00;&#x680F;&#x586B;&#x5199;&#x7684;&#x5373;&#x662F;&#x4F60;&#x7684; duoshuo_shortname&#x3002;<br>  &#x521B;&#x5EFA;&#x7AD9;&#x70B9;&#x5B8C;&#x6210;&#x540E;&#x5728;&#x7AD9;&#x70B9;&#x914D;&#x7F6E;&#x6587;&#x4EF6; &#x4E2D;&#x65B0;&#x589E; duoshuo_shortname &#x5B57;&#x6BB5;&#xFF0C;&#x503C;&#x8BBE;&#x7F6E;&#x6210;&#x4E0A;&#x4E00;&#x6B65;&#x4E2D;&#x7684;&#x503C;&#x3002;</p>
+<h3 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h3><p>在需要显示摘要的地方添加如下代码即可：<br><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">以上是摘要</span><br><span class="line">&lt;!--more-- &gt;</span><br><span class="line">以下是余下全文</span><br></pre></td></tr></table></figure></p>
+<h2 id="其他配置"><a href="#其他配置" class="headerlink" title="其他配置"></a>其他配置</h2><h3 id="多说评论系统"><a href="#多说评论系统" class="headerlink" title="多说评论系统"></a>多说评论系统</h3><ul>
+<li><p>使用多说前需要先在 多说 创建一个站点。具体步骤如下：</p>
+<p>  登录后在首页选择 “我要安装”。<br>  创建站点，填写站点相关信息。多说域名 这一栏填写的即是你的 duoshuo_shortname。<br>  创建站点完成后在站点配置文件 中新增 duoshuo_shortname 字段，值设置成上一步中的值。</p>
 </li>
 </ul>
-<p>&#x672C;&#x4EBA;&#x7B2C;&#x4E00;&#x6B21;&#x5199;&#x535A;&#x5BA2;&#xFF0C;&#x7528;Markdown&#x4E5F;&#x662F;&#x7B2C;&#x4E00;&#x6B21;&#xFF0C;&#x54EA;&#x91CC;&#x5199;&#x7684;&#x4E0D;&#x597D;&#x8BF7;&#x6307;&#x6559;&#x3002;<br>&#x4EE5;&#x4E0A;</p>
+<p>本人第一次写博客，用Markdown也是第一次，哪里写的不好请指教。<br>以上</p>
 
-      
-    </div>
-
-    <div>
-      
-        
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <footer class="post-footer">
-      
+      </div>
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="https://akapril.github.io">Akapril</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="https://akapril.github.io/2016/06/17/build-blog/">https://akapril.github.io/2016/06/17/build-blog/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+      <footer class="post-footer">
         <div class="post-tags">
-          
-            <a href="/tags/Hexo/" rel="tag">#Hexo</a>
-          
-            <a href="/tags/博客/" rel="tag">#博客</a>
-          
-            <a href="/tags/Node-js/" rel="tag">#Node.js</a>
-          
-        </div>
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/21/hexo-github-pages-https/" rel="prev" title="Hexo博客Github Pages配置Https">
-                Hexo博客Github Pages配置Https <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-  <div class="comments" id="comments">
-    
-      <div class="ds-thread" data-thread-key="2016/06/17/build-blog/"
-           data-title="使用Github Page和Hexo搭建个人博客" data-url="https://deathswaltz.github.io/2016/06/17/build-blog/">
-      </div>
-    
-  </div>
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview sidebar-panel ">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="https://avatars0.githubusercontent.com/u/10008846?v=3&s=460"
-               alt="deathswaltz" />
-          <p class="site-author-name" itemprop="name">deathswaltz</p>
-          <p class="site-description motion-element" itemprop="description"></p>
-        </div>
-        <nav class="site-state motion-element">
-          <div class="site-state-item site-state-posts">
-            <a href="/archives">
-              <span class="site-state-item-count">4</span>
-              <span class="site-state-item-name">日志</span>
-            </a>
-          </div>
-
-          
-            <div class="site-state-item site-state-categories">
-              <a href="/categories">
-                <span class="site-state-item-count">6</span>
-                <span class="site-state-item-name">分类</span>
-              </a>
+            <a href="/tags/Hexo/">Hexo</a>
+            <a href="/tags/博客/">博客</a>
+            <a href="/tags/Node-js/">Node.js</a>
             </div>
-          
-
-          
-            <div class="site-state-item site-state-tags">
-              <a href="/tags">
-                <span class="site-state-item-count">10</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
         
-          <div class="feed-link motion-element">
-            <a href="/atom.xml" rel="alternate">
-              <i class="fa fa-rss"></i>
-              RSS
-            </a>
-          </div>
-        
+        <nav class="post-nav"><a class="prev" href="/2016/07/21/hexo-github-pages-https/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">Hexo博客Github Pages配置Https</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"></div></div>
+      </main>
 
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/deathswaltz" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                  GitHub
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://weibo.com/5012003422" target="_blank" title="Weibo">
-                  
-                    <i class="fa fa-fw fa-weibo"></i>
-                  
-                  Weibo
-                </a>
-              </span>
-            
-          
-        </div>
-
-        
-        
-
-        
-        
-
-      </section>
-
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装环境"><span class="nav-number">1.</span> <span class="nav-text">安装环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Github上创建仓库"><span class="nav-number">2.</span> <span class="nav-text">Github上创建仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#博客的创建"><span class="nav-number">3.</span> <span class="nav-text">博客的创建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化项目"><span class="nav-number">3.1.</span> <span class="nav-text">初始化项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基础配置"><span class="nav-number">3.2.</span> <span class="nav-text">基础配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装主题"><span class="nav-number">3.3.</span> <span class="nav-text">安装主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建-“关于我”-页面"><span class="nav-number">3.4.</span> <span class="nav-text">创建 “关于我” 页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建分类页面"><span class="nav-number">3.5.</span> <span class="nav-text">创建分类页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建标签云页面"><span class="nav-number">3.6.</span> <span class="nav-text">创建标签云页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文章摘要"><span class="nav-number">3.7.</span> <span class="nav-text">文章摘要</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他配置"><span class="nav-number">4.</span> <span class="nav-text">其他配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#多说评论系统"><span class="nav-number">4.1.</span> <span class="nav-text">多说评论系统</span></a></li></ol></li></ol></div>
-            
-          </div>
-        </section>
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy; 
-  <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/ahonn" class="iconfont icon-github" title="github"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
   </span>
-  <span class="author" itemprop="copyrightHolder">deathswaltz</span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2019<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Akapril</span>
+  </span>
 </div>
+</footer>
 
-<div class="powered-by">
-  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
-</div>
-
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
-  </a>
-</div>
-
-        
-
-        
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
       </div>
-    </footer>
-
-    <div class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
-    </div>
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-  
-
-
-
-  
-  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
-
-
-
-  
-
-  
-    
-  
-
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"Azrael"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.id = 'duoshuo-script';
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
-
-  
-    
-  
-
-
-
-
-
-
-  
-  
-  <script type="text/javascript">
-    // Popup Window;
-    var isfetched = false;
-    // Search DB path;
-    var search_path = "search.xml";
-    if (search_path.length == 0) {
-       search_path = "search.xml";
-    }
-    var path = "/" + search_path;
-    // monitor main search box;
-
-    function proceedsearch() {
-      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
-      $('.popup').toggle();
-
-    }
-    // search function;
-    var searchFunc = function(path, search_id, content_id) {
-    'use strict';
-    $.ajax({
-        url: path,
-        dataType: "xml",
-        async: true,
-        success: function( xmlResponse ) {
-            // get the contents from search data
-            isfetched = true;
-            $('.popup').detach().appendTo('.header-inner');
-            var datas = $( "entry", xmlResponse ).map(function() {
-                return {
-                    title: $( "title", this ).text(),
-                    content: $("content",this).text(),
-                    url: $( "url" , this).text()
-                };
-            }).get();
-            var $input = document.getElementById(search_id);
-            var $resultContent = document.getElementById(content_id);
-            $input.addEventListener('input', function(){
-                var matchcounts = 0;
-                var str='<ul class=\"search-result-list\">';                
-                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
-                $resultContent.innerHTML = "";
-                if (this.value.trim().length > 1) {
-                // perform local searching
-                datas.forEach(function(data) {
-                    var isMatch = true;
-                    var content_index = [];
-                    var data_title = data.title.trim().toLowerCase();
-                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
-                    var data_url = data.url;
-                    var index_title = -1;
-                    var index_content = -1;
-                    var first_occur = -1;
-                    // only match artiles with not empty titles and contents
-                    if(data_title != '' && data_content != '') {
-                        keywords.forEach(function(keyword, i) {
-                            index_title = data_title.indexOf(keyword);
-                            index_content = data_content.indexOf(keyword);
-                            if( index_title < 0 && index_content < 0 ){
-                                isMatch = false;
-                            } else {
-                                if (index_content < 0) {
-                                    index_content = 0;
-                                }
-                                if (i == 0) {
-                                    first_occur = index_content;
-                                }
-                            }
-                        });
-                    }
-                    // show search results
-                    if (isMatch) {
-                        matchcounts += 1;
-                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
-                        var content = data.content.trim().replace(/<[^>]+>/g,"");
-                        if (first_occur >= 0) {
-                            // cut out 100 characters
-                            var start = first_occur - 20;
-                            var end = first_occur + 80;
-                            if(start < 0){
-                                start = 0;
-                            }
-                            if(start == 0){
-                                end = 50;
-                            }
-                            if(end > content.length){
-                                end = content.length;
-                            }
-                            var match_content = content.substring(start, end);
-                            // highlight all keywords
-                            keywords.forEach(function(keyword){
-                                var regS = new RegExp(keyword, "gi");
-                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
-                            });
-                            
-                            str += "<p class=\"search-result\">" + match_content +"...</p>"
-                        }
-                        str += "</li>";
-                    }
-                })};
-                str += "</ul>";
-                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
-                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
-                $resultContent.innerHTML = str;
-            });
-            proceedsearch();
-        }
-    });}
-
-    // handle and trigger popup window;
-    $('.popup-trigger').mousedown(function(e) {
-      e.stopPropagation();
-      if (isfetched == false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-
-    });
-
-    $('.popup-btn-close').click(function(e){
-      $('.popup').hide();
-      $(".popoverlay").remove();
-      $('body').css('overflow', '');
-    });
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-  </script>
-
-  
-
-  
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
-  <script>AV.initialize("gGKTF6lE57NT6I45YzjY0J7V-gzGzoHsz", "l3sfs7cr8xtWTmTvhhhKjxLi");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
-
-
-
-  
-
+    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
 </body>
 </html>

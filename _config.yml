@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: deathswaltz的学习笔记
+title: Akapril's 
 subtitle:
 description:
-author: deathswaltz
+author: Akapril
 language: zh-Hans
 timezone:
 avatar: https://avatars0.githubusercontent.com/u/10008846?v=3&s=460
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://deathswaltz.github.io
+url: https://akapril.github.io
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -38,6 +38,8 @@ render_drafts: false
 post_asset_folder: true
 relative_link: false
 future: true
+#highlight: xcode
+
 highlight:
   enable: true
   line_number: true
@@ -64,8 +66,9 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: next
-
+theme: cactus
+theme_config:
+  colorscheme: white  
 
 search:
   path: search.xml
@@ -77,6 +80,6 @@ search:
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repository: https://github.com/deathswaltz/deathswaltz.github.io.git
+  repository: https://github.com/akapril/akapril.github.io.git
   branch: master
 
