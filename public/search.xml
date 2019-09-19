@@ -137,41 +137,6 @@
     
     
     <entry>
-      <title>Hexo博客Github Pages配置Https</title>
-      <link href="/2016/07/21/hexo-github-pages-https/"/>
-      <url>/2016/07/21/hexo-github-pages-https/</url>
-      
-        <content type="html"><![CDATA[<h3 id="Github-Pages应用自定义域名"><a href="#Github-Pages应用自定义域名" class="headerlink" title="Github Pages应用自定义域名"></a>Github Pages应用自定义域名</h3><p>默认情况下访问GitHub Pages页面的域名为<code>username.github.io</code>，如果需要使用自己的域名（以下简称“你的域名”），可<a href="https://help.github.com/articles/using-a-custom-domain-with-github-pages/" target="_blank" rel="noopener">参考官方的帮助文档</a>，其实非常简单：</p><ol><li>在repo根目录下创建CNAME文件，内容为你的域名。</li><li>在你的域名管理中心，添加一条CNAME记录，指向<code>username.github.io</code>。（将username替换为你的GitHub用户名）</li></ol><p>现在，访问<code>http://你的域名</code> ，已经可以访问到站点首页了。而如果访问<code>http://username.github.io</code> （即原来的地址），将被302跳转到<code>http://你的域名</code>。</p><a id="more"></a><h3 id="Https的问题"><a href="#Https的问题" class="headerlink" title="Https的问题"></a>Https的问题</h3><p>尝试直接访问<code>https://你的域名</code>，浏览器会报<code>SSL_DOMAIN_NOT_MATCHED</code>警告。因为GitHub Pages默认提供的SSL证书的根域名是<code>github.io</code>，和你的域名不相同。<br>而且，GitHub Pages不支持上传SSL证书。</p><h3 id="使用CloudFlare"><a href="#使用CloudFlare" class="headerlink" title="使用CloudFlare"></a>使用CloudFlare</h3><ol><li>首先去<a href="https://www.cloudflare.com/" target="_blank" rel="noopener">https://www.cloudflare.com/</a>注册账户，配置好你的网站，然后把你域名的DNS服务换成cloudflare提供给你的DNS</li><li>在cloudflare的Crypto页中，SSL设置为Flexible。这将允许CDN到github pages之间的访问为http。</li></ol><h3 id="强制https"><a href="#强制https" class="headerlink" title="强制https"></a>强制https</h3><p>cloudflare提供<code>Page Rules</code>功能，可设置路由规则。通过规则中的<code>Always use https</code>选项，可以将用户强制跳转到https。<br><img src="/2016/07/21/hexo-github-pages-https/pagerule.png" alt="pagerule"></p><h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><ol><li><p>站点配置文件_config.yml添加如下配置(_config.yml配置文件是主题里的)</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">url: https://www.yoursite.com   # with the https protocol</span><br><span class="line">enforce_ssl: www.yoursite.com   # without any protocol</span><br><span class="line"># 例:</span><br><span class="line">url: https://blog.deathsw.com</span><br><span class="line">enforce_ssl: blog.deathsw.com</span><br></pre></td></tr></table></figure></li><li><p>主题的head文件添加以下配置<br>修改文件为\themes\next\layout\_partials下的head.swig</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=<span class="string">"canonical"</span> href=<span class="string">" &#123; &#123; site.url &#125; &#125;&#123; &#123; page.url &#125; &#125;"</span> /&gt;</span><br><span class="line"> &lt;script type=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line">    <span class="keyword">var</span> host = <span class="string">"yoursite.com"</span>;</span><br><span class="line">    <span class="keyword">if</span> ((host == <span class="built_in">window</span>.location.host) &amp;&amp; (<span class="built_in">window</span>.location.protocol != <span class="string">"https:"</span>))</span><br><span class="line">        <span class="built_in">window</span>.location.protocol = <span class="string">"https"</span>;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure></li></ol><p>现在，通过<code>https://你的域名</code>已经可以访问站点首页了。</p><p>参考：<br><a href="https://sheharyar.me/blog/free-ssl-for-github-pages-with-custom-domains/" target="_blank" rel="noopener">https://sheharyar.me/blog/free-ssl-for-github-pages-with-custom-domains/</a><br><a href="https://blog.chionlab.moe/2016/01/28/github-pages-with-https/" target="_blank" rel="noopener">https://blog.chionlab.moe/2016/01/28/github-pages-with-https/</a></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Hexo </category>
-          
-          <category> Https </category>
-          
-          <category> Blog </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Hexo </tag>
-            
-            <tag> Blog </tag>
-            
-            <tag> Https </tag>
-            
-            <tag> github pages </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>使用Github Page和Hexo搭建个人博客</title>
       <link href="/2016/06/17/build-blog/"/>
       <url>/2016/06/17/build-blog/</url>

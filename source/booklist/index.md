@@ -25,7 +25,7 @@ date: 2019-09-19 09:46:46
 - [ ] [《原则》](https://book.douban.com/subject/27608239/) 40%
 - [ ] [《傲慢与偏见》](https://book.douban.com/subject/4881639/) 20%
 - [ ] [《刻意练习》](https://book.douban.com/subject/26895993/) 25%
-- [ ] [《白夜行》](https://book.douban.com/subject/25924253/) 30%
+- [ ] [《白夜行》](https://book.douban.com/subject/27112607/) 30%
 - [ ] [《金瓶梅》](https://book.douban.com/subject/1916451/) 20%
 - [ ] [《聊斋》](https://book.douban.com/subject/1036397/) 10%
 
