@@ -80,6 +80,8 @@ search:
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repository: https://github.com/akapril/akapril.github.io.git
+  repository: 
+    github: https://github.com/akapril/akapril.github.io.git
+    coding: https://e.coding.net/akapril/akapril.git
   branch: master
 
