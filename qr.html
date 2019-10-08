@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0039)https://233boy.github.io/tools/qr.html# -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +12,10 @@
 		#text {
 			width: 95%;
 		}
+		#label{
+			width: 53.9%;
+			height: 30px;
+		}
         img {
             border: 1px #ddd solid;
         }
@@ -22,8 +25,9 @@
 <body>
 
     <center>
-
         <textarea id="text" type="text" placeholder="请输入内容" rows="23.333" cols="23.333" autofocus=""></textarea>
+        <input type="text" name="label" id="label" placeholder="请输入中间标题" autofocus="">
+
         <p id="qrcode"></p>
     </center>
     <script>
@@ -36,7 +40,7 @@
     <script type="text/javascript">
         $(function () {
 
-            function qr(text) {
+            function qr(text,label) {
                 var options = {
                     render: 'canvas',
                     size: 300,
@@ -44,7 +48,7 @@
                     fill: '#233',
                     background: null,
                     text: text,
-                    label: 'akapril',
+                    label: label,
                     fontname: 'sans',
                     fontcolor: '#233',
                     quiet: 0,
@@ -56,19 +60,35 @@
 
 
             if (window.location.hash) {
-                var v = window.location.hash.substring(1);
+                var v = window.location.hash.substring(1,window.location.hash.indexOf("&"));
+                var label = window.location.hash.substring(window.location.hash.indexOf("&")+1,window.location.hash.length);
                 $("#text").val(v);
-                qr(v);
+                $("#label").val(label);
+                qr(v,label);
             }
 
-            $("#text").on("input", function (e) {
-                var v = $(e.target).val();
-                window.location.hash = v;
-                qr(v);
+            $("#label").on("input", function (e) {
+            	var v = $("#text").val();
+                var label = $(e.target).val();
+                window.location.hash = v+"&"+label;
+                qr(v,label);
                 if (v === "") {
                     qrcode.innerHTML = '请输入内容'
                 } else {
-                    qr(v);
+                    qr(v,label);
+                }
+            })
+
+
+            $("#text").on("input", function (e) {
+            	var label = $("#label").val();
+                var v = $(e.target).val();
+                window.location.hash = v+"&"+label;
+                qr(v,label);
+                if (v === "") {
+                    qrcode.innerHTML = '请输入内容'
+                } else {
+                    qr(v,label);
                 }
             })
         })
