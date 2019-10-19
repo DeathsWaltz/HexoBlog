@@ -4,6 +4,50 @@
   
     
     <entry>
+      <title>maven安装jar到本地仓库后jenkins编译项目引用不到问题</title>
+      <link href="/2019/10/19/jenkins-maven/"/>
+      <url>/2019/10/19/jenkins-maven/</url>
+      
+        <content type="html"><![CDATA[<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><h5 id="maven安装jar到本地仓库后jenkins编译项目报错"><a href="#maven安装jar到本地仓库后jenkins编译项目报错" class="headerlink" title="maven安装jar到本地仓库后jenkins编译项目报错"></a>maven安装jar到本地仓库后jenkins编译项目报错</h5><h5 id="使用将jar安装到本地仓库的方法"><a href="#使用将jar安装到本地仓库的方法" class="headerlink" title="使用将jar安装到本地仓库的方法."></a>使用将jar安装到本地仓库的方法.</h5><p>安装jar到本地仓库命令</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn install:install-file -DgroupId=com.taobao.api -DartifactId=taobao-sdk  -Dversion=1.0 -Dpackaging=jar -Dfile=taobao-sdk-java-auto_1565853390086-20190917.jar</span><br></pre></td></tr></table></figure><p>然后在<code>pom.xml</code>文件中引入</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.taobao.api<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>taobao-sdk<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure><p>安装后还是无法引用到jar包.</p><h4 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h4><p>因maven本地仓库的目录是在运行用户目录的<code>.m2/reopsitory</code>下,<code>settings.xml</code>文件中有说明.</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- localRepository</span></span><br><span class="line"><span class="comment">  | The path to the local repository maven will use to store artifacts.</span></span><br><span class="line"><span class="comment">  |</span></span><br><span class="line"><span class="comment">  | Default: $&#123;user.home&#125;/.m2/repository</span></span><br><span class="line"><span class="comment"> &lt;localRepository&gt;/path/to/local/repo&lt;/localRepository&gt;</span></span><br><span class="line"><span class="comment"> --&gt;</span></span><br></pre></td></tr></table></figure><p>执行jar包安装的命令是在root用户下运行的,安装后jar包被安装到了<code>/root/.m2/repository</code>目录下.</p><p>jenkins是使用rpm文件进行的安装,安装后jenkins运行在自建的用户下.</p><p>所以在jenkins的用户下引用不到安装后的jar包.</p><h4 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h4><p>修改maven本地仓库的配置<code>settings.xml</code></p><p>在<code>&lt;settings&gt;</code>标签内新增</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- jenkins 用户的目录 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">localRepository</span>&gt;</span>/var/lib/jenkins/.m2/repository<span class="tag">&lt;/<span class="name">localRepository</span>&gt;</span></span><br></pre></td></tr></table></figure><p>再重新执行jar包安装命令后解决.</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> jenkins </tag>
+            
+            <tag> maven </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>mysql保存日期mybatis查询后多8小时问题</title>
+      <link href="/2019/10/19/mysql-timezone/"/>
+      <url>/2019/10/19/mysql-timezone/</url>
+      
+        <content type="html"><![CDATA[<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><p>发现查询出的日期数据与mysql数据库中的日期不符.</p><p>mysql查询出的数据是 2019-10-15 13:31:10 mybatis查询出的数据是 2019-10-15 05:31:10.</p><h4 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h4><p>因mysql设置时区与 Tomcat java 使用的时区不同.</p><h4 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h4><p>在数据库链接配置设置时区.</p><p>增加<code>serverTimezone=Asia/Shanghai</code></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jdbc:mysql://localhost:3306/db?serverTimezone=Asia/Shanghai</span><br></pre></td></tr></table></figure><p>参考地址：</p><p> <a href="https://blog.csdn.net/babybabyup/article/details/97802707" target="_blank" rel="noopener">https://blog.csdn.net/babybabyup/article/details/97802707</a></p><p> <a href="https://blog.csdn.net/saroll57/article/details/51837551" target="_blank" rel="noopener">https://blog.csdn.net/saroll57/article/details/51837551</a></p><p> <a href="https://blog.csdn.net/a549654065/article/details/88664077" target="_blank" rel="noopener">https://blog.csdn.net/a549654065/article/details/88664077 </a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> mysql </tag>
+            
+            <tag> mybaits </tag>
+            
+            <tag> java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>使用jenkins记录</title>
       <link href="/2019/09/12/use-jenkins/"/>
       <url>/2019/09/12/use-jenkins/</url>
