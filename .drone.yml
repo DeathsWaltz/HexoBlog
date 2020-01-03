@@ -1,0 +1,77 @@
+kind: pipeline
+name: default2
+
+steps:
+  - name: build
+    image: maven:3.5-jdk-8
+    volumes:
+      - name: cache
+        path: /root/.m2
+    commands:
+      - mvn clean package -DskipTests -Pprod
+
+  - name: publish
+    image: plugins/docker
+    settings:
+      registry: registry-internal.cn-hangzhou.aliyuncs.com
+      repo: "registry-internal.cn-hangzhou.aliyuncs.com/akapril-docker/jiahua"
+      mirror: https://b483ooly.mirror.aliyuncs.com
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      dockerfile: src/main/docker/Dockerfile
+      tag:
+        - "${DRONE_COMMIT_BRANCH}_${DRONE_COMMIT_SHA:0:8}"
+
+  - name: rancher
+    image: peloton/drone-rancher
+    settings:
+      url: https://rancher.honorjiahua.com/v1
+      access_key:
+        from_secret: rancher_access_key
+      secret_key:
+        from_secret: rancher_secret_key
+      service: "jiahua/jiahua"
+      docker_image: "127.0.0.1:65001/akapril-docker/jiahua:${DRONE_COMMIT_BRANCH}_${DRONE_COMMIT_SHA:0:8}"
+      start_first: true
+      timeout: 300
+      registry: 127.0.0.1:65001
+      repo: "127.0.0.1:65001/akapril-docker/jiahua"
+      batch_size: 1
+      interval_millis: 60000
+    when:
+      branch:
+        - stable
+
+  - name: rancher-prod
+    image: peloton/drone-rancher
+    settings:
+      url: https://rancher.honorjiahua.com/v1
+      access_key:
+        from_secret: prod_rancher_access_key
+      secret_key:
+        from_secret: prod_rancher_secret_key
+      service: "jiahua/jiahua"
+      docker_image: "127.0.0.1:65001/akapril-docker/jiahua:${DRONE_COMMIT_BRANCH}_${DRONE_COMMIT_SHA:0:8}"
+      start_first: true
+      timeout: 300
+      registry: 127.0.0.1:65001
+      repo: "127.0.0.1:65001/akapril-docker/jiahua"
+      batch_size: 1
+      interval_millis: 60000
+    when:
+      branch:
+        - master
+
+volumes:
+  - name: cache
+    host:
+      path: /drone/cache
+
+trigger:
+  branch:
+    - stable
+    - master
+  event:
+    - push
