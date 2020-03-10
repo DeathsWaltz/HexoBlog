@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang=en>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="场景对数据库进行实时增量备份。 安装配置准备mysql数据库需要先开启 Binlog写入功能，配置binlog-format 为 ROW模式，my.cnf中配置如下 1234[mysqld]log-bin=mysql-bin # 开启 binlogbinlog-format=ROW # 选择 ROW 模式server_id=1 # 配置 MySQL replaction 需要定义，不要和 cana">
+<meta name="keywords" content="canal,mysql,canal-server,canal-adapter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用canal进行mysql数据实时同步">
+<meta property="og:url" content="https://akapril.github.io/2020/03/07/use-canal/index.html">
+<meta property="og:site_name" content="Akapril&#39;s">
+<meta property="og:description" content="场景对数据库进行实时增量备份。 安装配置准备mysql数据库需要先开启 Binlog写入功能，配置binlog-format 为 ROW模式，my.cnf中配置如下 1234[mysqld]log-bin=mysql-bin # 开启 binlogbinlog-format=ROW # 选择 ROW 模式server_id=1 # 配置 MySQL replaction 需要定义，不要和 cana">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://azrael-1252339850.cos.ap-chengdu.myqcloud.com/20200307141300.png">
+<meta property="og:image" content="https://azrael-1252339850.cos.ap-chengdu.myqcloud.com/20200307142325.png">
+<meta property="og:image" content="https://azrael-1252339850.cos.ap-chengdu.myqcloud.com/20200307150301.png">
+<meta property="og:image" content="https://azrael-1252339850.cos.ap-chengdu.myqcloud.com/20200307145939.png">
+<meta property="og:updated_time" content="2020-03-07T07:19:44.532Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用canal进行mysql数据实时同步">
+<meta name="twitter:description" content="场景对数据库进行实时增量备份。 安装配置准备mysql数据库需要先开启 Binlog写入功能，配置binlog-format 为 ROW模式，my.cnf中配置如下 1234[mysqld]log-bin=mysql-bin # 开启 binlogbinlog-format=ROW # 选择 ROW 模式server_id=1 # 配置 MySQL replaction 需要定义，不要和 cana">
+<meta name="twitter:image" content="https://azrael-1252339850.cos.ap-chengdu.myqcloud.com/20200307141300.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>使用canal进行mysql数据实时同步</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/booklist">booklist</a></li>
+         
+          <li><a href="/todo">todo</a></li>
+         
+          <li><a href="/tools">tools</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2020/03/07/prometheus-grafana/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://akapril.github.io/2020/03/07/use-canal/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://akapril.github.io/2020/03/07/use-canal/&text=使用canal进行mysql数据实时同步"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://akapril.github.io/2020/03/07/use-canal/&title=使用canal进行mysql数据实时同步"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://akapril.github.io/2020/03/07/use-canal/&is_video=false&description=使用canal进行mysql数据实时同步"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=使用canal进行mysql数据实时同步&body=Check out this article: https://akapril.github.io/2020/03/07/use-canal/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://akapril.github.io/2020/03/07/use-canal/&title=使用canal进行mysql数据实时同步"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://akapril.github.io/2020/03/07/use-canal/&title=使用canal进行mysql数据实时同步"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://akapril.github.io/2020/03/07/use-canal/&title=使用canal进行mysql数据实时同步"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://akapril.github.io/2020/03/07/use-canal/&title=使用canal进行mysql数据实时同步"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://akapril.github.io/2020/03/07/use-canal/&name=使用canal进行mysql数据实时同步&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#场景"><span class="toc-number">1.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装配置"><span class="toc-number">2.</span> <span class="toc-text">安装配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#准备"><span class="toc-number">2.0.1.</span> <span class="toc-text">准备</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#拉取Docker镜像"><span class="toc-number">2.0.2.</span> <span class="toc-text">拉取Docker镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#启动（单机模式）"><span class="toc-number">2.0.3.</span> <span class="toc-text">启动（单机模式）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运行效果"><span class="toc-number">2.0.4.</span> <span class="toc-text">运行效果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#启动canal-adapter"><span class="toc-number">2.1.</span> <span class="toc-text">启动canal-adapter</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#配置"><span class="toc-number">2.1.1.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#适配器列表"><span class="toc-number">2.1.2.</span> <span class="toc-text">适配器列表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RDB表映射文件"><span class="toc-number">2.1.3.</span> <span class="toc-text">RDB表映射文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#启动"><span class="toc-number">2.1.4.</span> <span class="toc-text">启动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#adapter管理REST接口"><span class="toc-number">2.1.5.</span> <span class="toc-text">adapter管理REST接口</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#增加Prometheus监控"><span class="toc-number">3.</span> <span class="toc-text">增加Prometheus监控</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        使用canal进行mysql数据实时同步
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Akapril's</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-03-07T06:00:42.000Z" itemprop="datePublished">2020-03-07</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/canal/">canal</a>, <a class="tag-link" href="/tags/canal-adapter/">canal-adapter</a>, <a class="tag-link" href="/tags/canal-server/">canal-server</a>, <a class="tag-link" href="/tags/mysql/">mysql</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>对数据库进行实时增量备份。</p>
+<h2 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h2><h4 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h4><p><code>mysql</code>数据库需要先开启 <code>Binlog</code>写入功能，配置<code>binlog-format</code> 为 <code>ROW</code>模式，<code>my.cnf</code>中配置如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">log-bin=mysql-bin # 开启 binlog</span><br><span class="line">binlog-format=ROW # 选择 ROW 模式</span><br><span class="line">server_id=1 # 配置 MySQL replaction 需要定义，不要和 canal 的 slaveId 重复</span><br></pre></td></tr></table></figure>
+
+<h4 id="拉取Docker镜像"><a href="#拉取Docker镜像" class="headerlink" title="拉取Docker镜像"></a>拉取Docker镜像</h4><p>使用<code>docker</code>启动<code>canal-server</code></p>
+<ol>
+<li>访问<code>docker hub</code>获取最新的版本 访问：<a href="https://hub.docker.com/r/canal/canal-server/tags/" target="_blank" rel="noopener">https://hub.docker.com/r/canal/canal-server/tags/</a></li>
+<li>下载对应的版本</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull canal/canal-server:lastet</span><br></pre></td></tr></table></figure>
+
+<h4 id="启动（单机模式）"><a href="#启动（单机模式）" class="headerlink" title="启动（单机模式）"></a>启动（单机模式）</h4><p>使用<code>canal</code>提供的<code>run.sh</code>脚本:</p>
+<p> <a href="https://github.com/alibaba/canal/blob/master/docker/run.sh" target="_blank" rel="noopener">https://github.com/alibaba/canal/blob/master/docker/run.sh</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 下载脚本</span><br><span class="line">wget https://raw.githubusercontent.com/alibaba/canal/master/docker/run.sh </span><br><span class="line"><span class="meta">#</span> 构建一个destination name为sys_info的队列，命令中mysql的链接地址为需要备份的数据库</span><br><span class="line">sh run.sh -e canal.auto.scan=false \</span><br><span class="line">		  -e canal.destinations=sys_info \</span><br><span class="line">		  -e canal.instance.master.address=***.mysql.***.rds.aliyuncs.com:3306  \</span><br><span class="line">		  -e canal.instance.dbUsername=****  \</span><br><span class="line">		  -e canal.instance.dbPassword=****  \</span><br><span class="line">		  -e canal.instance.connectionCharset=UTF-8 \</span><br><span class="line">		  -e canal.instance.tsdb.enable=true \</span><br><span class="line">		  -e canal.instance.gtidon=false</span><br></pre></td></tr></table></figure>
+
+<p><code>docker</code>模式下，单<code>docker</code>实例只能运行一个<code>instance</code>，主要为配置问题。</p>
+<h4 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h4><p><img src="https://azrael-1252339850.cos.ap-chengdu.myqcloud.com/20200307141300.png" alt></p>
+<p>successful代表<code>canal-server</code>启动成功。</p>
+<h3 id="启动canal-adapter"><a href="#启动canal-adapter" class="headerlink" title="启动canal-adapter"></a>启动canal-adapter</h3><h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><p><code>canal-adapter</code>下载地址：<a href="https://github.com/alibaba/canal/releases" target="_blank" rel="noopener">https://github.com/alibaba/canal/releases</a></p>
+<p>获取对应<code>canal-server(canal.deployer)</code>版本的<code>canal-adapter</code></p>
+<p><img src="https://azrael-1252339850.cos.ap-chengdu.myqcloud.com/20200307142325.png" alt></p>
+<p>最好使用稳定版本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>下载canal-adapter </span><br><span class="line"><span class="meta">#</span>$&#123;version&#125; 为对应版本 如 1.1.4</span><br><span class="line">wget https://github.com/alibaba/canal/releases/download/canal-$&#123;version&#125;/canal.adapter-$&#123;version&#125;.tar.gz </span><br><span class="line"><span class="meta">#</span>下载后解压到指定目录</span><br><span class="line">tar -zxvf canal.adapter-$&#123;version&#125;.tar.gz -C canal-adapter</span><br></pre></td></tr></table></figure>
+
+<p>修改配置文件<code>conf/application.yml</code>为：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8081</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">jackson:</span></span><br><span class="line">    <span class="attr">date-format:</span> <span class="string">yyyy-MM-dd</span> <span class="string">HH:mm:ss</span></span><br><span class="line">    <span class="attr">time-zone:</span> <span class="string">GMT+8</span></span><br><span class="line">    <span class="attr">default-property-inclusion:</span> <span class="string">non_null</span></span><br><span class="line"></span><br><span class="line"><span class="attr">canal.conf:</span></span><br><span class="line">  <span class="attr">mode:</span> <span class="string">tcp</span> <span class="comment"># kafka rocketMQ</span></span><br><span class="line">  <span class="attr">canalServerHost:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:11111</span></span><br><span class="line">  <span class="attr">batchSize:</span> <span class="number">500</span></span><br><span class="line">  <span class="attr">syncBatchSize:</span> <span class="number">1000</span></span><br><span class="line">  <span class="attr">retries:</span> <span class="number">0</span></span><br><span class="line">  <span class="attr">timeout:</span></span><br><span class="line">  <span class="attr">canalAdapters:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">instance:</span> <span class="string">sys_info</span> <span class="comment"># canal instance Name or mq topic name  </span></span><br><span class="line">    <span class="attr">groups:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">groupId:</span> <span class="string">g1</span></span><br><span class="line">      <span class="attr">outerAdapters:</span></span><br><span class="line">      <span class="comment">#- name: logger</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">rdb</span>  <span class="comment"># 指定为rdb类型同步 # 接收数据的新数据库</span></span><br><span class="line">        <span class="attr">key:</span> <span class="string">mysql1</span> <span class="comment"># 指定adapter的唯一key, 与表映射配置中outerAdapterKey对应</span></span><br><span class="line">        <span class="attr">properties:</span></span><br><span class="line">          <span class="attr">jdbc.driverClassName:</span> <span class="string">com.mysql.jdbc.Driver</span> <span class="comment"># jdbc驱动名, 部分jdbc的jar包需要自行放致lib目录下</span></span><br><span class="line">          <span class="attr">jdbc.url:</span> <span class="string">jdbc:mysql://***.***.rds.aliyuncs.com:3306/sys_info?useUnicode=true</span> <span class="comment"># jdbc url</span></span><br><span class="line">          <span class="attr">jdbc.username:</span> <span class="string">****</span> <span class="comment"># jdbc username</span></span><br><span class="line">          <span class="attr">jdbc.password:</span> <span class="string">****</span> <span class="comment"># jdbc password</span></span><br><span class="line">          <span class="attr">threads:</span> <span class="number">5</span>     <span class="comment"># 并行执行的线程数, 默认为1</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>其中 <code>outAdapter</code> 的配置: <code>name</code>统一为<code>rdb</code>,<code>key</code>为对应的数据源的唯一标识需和下面的表映射文件中的<code>outerAdapterKey</code>对应,<code>properties</code>为目标库<code>jdb</code>的相关参数</li>
+<li>adapter将会自动加载<code>conf/rdb</code>下的所有<code>.yml</code>结尾的表映射配置文件</li>
+</ol>
+<h4 id="适配器列表"><a href="#适配器列表" class="headerlink" title="适配器列表"></a>适配器列表</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#最简单的处理, 将受到的变更事件通过日志打印的方式进行输出, 如配置所示, 只需要定义name: logger即可</span></span><br><span class="line"><span class="string">...</span></span><br><span class="line">      <span class="attr">outerAdapters:</span>                        </span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">logger</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="RDB表映射文件"><a href="#RDB表映射文件" class="headerlink" title="RDB表映射文件"></a>RDB表映射文件</h4><p>修改 <code>conf/rdb/mytest_user.yml</code>文件:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">dataSourceKey:</span> <span class="string">defaultDS</span>        <span class="comment"># 源数据源的key, 对应上面配置的srcDataSources中的值</span></span><br><span class="line"><span class="attr">destination:</span> <span class="string">sys_info</span>            <span class="comment"># cannal的instance或者MQ的topic</span></span><br><span class="line"><span class="attr">groupId:</span>                        <span class="comment"># 对应MQ模式下的groupId, 只会同步对应groupId的数据</span></span><br><span class="line"><span class="attr">outerAdapterKey:</span> <span class="string">mysql1</span>        <span class="comment"># adapter key, 对应上面配置outAdapters中的key</span></span><br><span class="line"><span class="attr">concurrent:</span> <span class="literal">true</span>                <span class="comment"># 是否按主键hash并行同步, 并行同步的表必须保证主键不会更改及主键不能为其他同步表的外键!!</span></span><br><span class="line"><span class="attr">dbMapping:</span></span><br><span class="line">  <span class="attr">database:</span> <span class="string">sys_info</span>              <span class="comment"># 源数据源的database/shcema</span></span><br><span class="line">  <span class="attr">table:</span> <span class="string">user</span>                   <span class="comment"># 源数据源表名</span></span><br><span class="line">  <span class="attr">targetTable:</span> <span class="string">sys_info.tb_user</span>   <span class="comment"># 目标数据源的库名.表名</span></span><br><span class="line">  <span class="attr">targetPk:</span>                     <span class="comment"># 主键映射</span></span><br><span class="line">    <span class="attr">id:</span> <span class="string">id</span>                      <span class="comment"># 如果是复合主键可以换行映射多个</span></span><br><span class="line"><span class="comment">#  mapAll: true                 # 是否整表映射, 要求源表和目标表字段名一模一样 (如果targetColumns也配置了映射,则以targetColumns配置为准)</span></span><br><span class="line">  <span class="attr">targetColumns:</span>                <span class="comment"># 字段映射, 格式: 目标表字段: 源表字段, 如果字段名一样源表字段名可不填</span></span><br><span class="line">    <span class="attr">id:</span></span><br><span class="line">    <span class="attr">name:</span></span><br><span class="line">    <span class="attr">role_id:</span></span><br></pre></td></tr></table></figure>
+
+<p>如果两个库之间表、字段都相同可直接进行镜像备份，<code>Mysql</code> 库间镜像<code>schema DDL DML</code>同步</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## Mirror schema synchronize config</span></span><br><span class="line"><span class="attr">dataSourceKey:</span> <span class="string">defaultDS</span></span><br><span class="line"><span class="attr">destination:</span> <span class="string">sys_info</span></span><br><span class="line"><span class="attr">groupId:</span> <span class="string">g1</span></span><br><span class="line"><span class="attr">outerAdapterKey:</span> <span class="string">mysql1</span></span><br><span class="line"><span class="attr">concurrent:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">dbMapping:</span></span><br><span class="line">  <span class="attr">mirrorDb:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">database:</span> <span class="string">sys_info</span></span><br></pre></td></tr></table></figure>
+
+<p>其中<code>dbMapping.database</code>的值代表源库和目标库的<code>schema</code>名称，即两库的<code>schema</code>要一模一样</p>
+<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><p>将目标库的<code>jdbc jar</code>包放入<code>lib</code>文件夹 (其他数据库放入对应的驱动)</p>
+<p>启动<code>canal-adapter</code>启动器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/startup.sh</span><br></pre></td></tr></table></figure>
+
+<p>验证 修改<code>mysql sys_info.user</code>表的数据, 将会自动同步到新<code>mysql</code>数据库的<code>sys_info.user</code>表下面, 并会打出<code>DML</code>的<code>log</code></p>
+<h4 id="adapter管理REST接口"><a href="#adapter管理REST接口" class="headerlink" title="adapter管理REST接口"></a>adapter管理REST接口</h4><ul>
+<li>查询所有订阅同步的<code>canal instance</code>或<code>MQ topic</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://127.0.0.1:8081/destinations</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>数据同步开关</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://127.0.0.1:8081/syncSwitch/sys_info/off -X PUT</span><br></pre></td></tr></table></figure>
+
+<p>针对 <code>sys_info</code>这个<code>canal instance/MQ topic</code> 进行开关操作. <code>off</code>代表关闭,<code>instance/topic</code>下的同步将阻塞或者断开连接不再接收数据, on代表开启</p>
+<p>注: 如果在配置文件中配置了 <code>zookeeperHosts</code>项, 则会使用分布式锁来控制<code>HA</code>中的数据同步开关, 如果是单机模式则使用本地锁来控制开关</p>
+<ul>
+<li>数据同步开关状态</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://127.0.0.1:8081/syncSwitch/sys_info</span><br></pre></td></tr></table></figure>
+
+<p>查看指定 canal instance/MQ topic 的数据同步开关状态</p>
+<h2 id="增加Prometheus监控"><a href="#增加Prometheus监控" class="headerlink" title="增加Prometheus监控"></a>增加Prometheus监控</h2><p>安装并部署对应平台的<code>prometheus</code>，参见<a href="prometheus-grafana">这里</a></p>
+<p>配置<code>prometheus.yml</code>，添加<code>canal</code>的<code>job</code>，示例：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">'canal'</span></span><br><span class="line">   <span class="attr">static_configs:</span></span><br><span class="line">   <span class="bullet">-</span> <span class="attr">targets:</span> <span class="string">['localhost:11112']</span> <span class="string">//端口配置即为canal.properties中的canal.metrics.pull.port</span></span><br></pre></td></tr></table></figure>
+
+<p>导入模板(<a href="https://raw.githubusercontent.com/alibaba/canal/master/deployer/src/main/resources/metrics/Canal_instances_tmpl.json" target="_blank" rel="noopener">Canal_instances_tmpl.json</a>)，参考<a href="http://docs.grafana.org/reference/export_import/#importing-a-dashboard" target="_blank" rel="noopener">这里</a></p>
+<p><img src="https://azrael-1252339850.cos.ap-chengdu.myqcloud.com/20200307150301.png" alt></p>
+<p>导入后效果：</p>
+<p><img src="https://azrael-1252339850.cos.ap-chengdu.myqcloud.com/20200307145939.png" alt></p>
+<p>参考地址：</p>
+<p><a href="https://github.com/alibaba/canal/wiki/QuickStart" target="_blank" rel="noopener">https://github.com/alibaba/canal/wiki/QuickStart</a></p>
+<p><a href="https://github.com/alibaba/canal/wiki/Docker-QuickStart" target="_blank" rel="noopener">https://github.com/alibaba/canal/wiki/Docker-QuickStart</a></p>
+<p><a href="https://github.com/alibaba/canal/wiki/ClientAdapter" target="_blank" rel="noopener">https://github.com/alibaba/canal/wiki/ClientAdapter</a></p>
+<p><a href="https://github.com/alibaba/canal/wiki/Sync-RDB" target="_blank" rel="noopener">https://github.com/alibaba/canal/wiki/Sync-RDB</a></p>
+<p><a href="https://github.com/alibaba/canal/wiki/Prometheus-QuickStart" target="_blank" rel="noopener">https://github.com/alibaba/canal/wiki/Prometheus-QuickStart</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/booklist">booklist</a></li>
+         
+          <li><a href="/todo">todo</a></li>
+         
+          <li><a href="/tools">tools</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#场景"><span class="toc-number">1.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装配置"><span class="toc-number">2.</span> <span class="toc-text">安装配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#准备"><span class="toc-number">2.0.1.</span> <span class="toc-text">准备</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#拉取Docker镜像"><span class="toc-number">2.0.2.</span> <span class="toc-text">拉取Docker镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#启动（单机模式）"><span class="toc-number">2.0.3.</span> <span class="toc-text">启动（单机模式）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运行效果"><span class="toc-number">2.0.4.</span> <span class="toc-text">运行效果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#启动canal-adapter"><span class="toc-number">2.1.</span> <span class="toc-text">启动canal-adapter</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#配置"><span class="toc-number">2.1.1.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#适配器列表"><span class="toc-number">2.1.2.</span> <span class="toc-text">适配器列表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RDB表映射文件"><span class="toc-number">2.1.3.</span> <span class="toc-text">RDB表映射文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#启动"><span class="toc-number">2.1.4.</span> <span class="toc-text">启动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#adapter管理REST接口"><span class="toc-number">2.1.5.</span> <span class="toc-text">adapter管理REST接口</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#增加Prometheus监控"><span class="toc-number">3.</span> <span class="toc-text">增加Prometheus监控</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://akapril.github.io/2020/03/07/use-canal/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://akapril.github.io/2020/03/07/use-canal/&text=使用canal进行mysql数据实时同步"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://akapril.github.io/2020/03/07/use-canal/&title=使用canal进行mysql数据实时同步"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://akapril.github.io/2020/03/07/use-canal/&is_video=false&description=使用canal进行mysql数据实时同步"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=使用canal进行mysql数据实时同步&body=Check out this article: https://akapril.github.io/2020/03/07/use-canal/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://akapril.github.io/2020/03/07/use-canal/&title=使用canal进行mysql数据实时同步"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://akapril.github.io/2020/03/07/use-canal/&title=使用canal进行mysql数据实时同步"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://akapril.github.io/2020/03/07/use-canal/&title=使用canal进行mysql数据实时同步"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://akapril.github.io/2020/03/07/use-canal/&title=使用canal进行mysql数据实时同步"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://akapril.github.io/2020/03/07/use-canal/&name=使用canal进行mysql数据实时同步&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2020 Akapril
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/booklist">booklist</a></li>
+         
+          <li><a href="/todo">todo</a></li>
+         
+          <li><a href="/tools">tools</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<!-- clipboard -->
+
+  <script src="/lib/clipboard/clipboard.min.js"></script>
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight .code pre").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

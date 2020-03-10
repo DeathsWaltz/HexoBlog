@@ -30,6 +30,7 @@ date: 2019-09-19 09:46:46
 - [ ] [《聊斋》](https://book.douban.com/subject/1036397/) 10%
 
 ---
+- [ ] [《精力管理》](https://book.douban.com/subject/1019959/)
 - [ ] [《资治通鉴》](https://book.douban.com/subject/2029680/)  [https://tongjian.qiaopang.com/](https://tongjian.qiaopang.com/)
 - [ ] [《娱乐至死》](https://book.douban.com/subject/26319730/)
 - [ ] [《影响力》](https://book.douban.com/subject/1786387/)

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang=en>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Prometheus安装使用docker安装 docker已经安装好之后，正式安装prometheus。 1docker run -d  -p 9090:9090 -v /etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml   -v /etc/localtime:/etc/localtime prom/prometheus  如">
+<meta name="keywords" content="Prometheus,Grafana,Java,spring boot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Prometheus、Grafana安装和配置监控Java应用">
+<meta property="og:url" content="https://akapril.github.io/2020/03/07/prometheus-grafana/index.html">
+<meta property="og:site_name" content="Akapril&#39;s">
+<meta property="og:description" content="Prometheus安装使用docker安装 docker已经安装好之后，正式安装prometheus。 1docker run -d  -p 9090:9090 -v /etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml   -v /etc/localtime:/etc/localtime prom/prometheus  如">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://azrael-1252339850.cos.ap-chengdu.myqcloud.com/20200307104004.png">
+<meta property="og:image" content="https://azrael-1252339850.cos.ap-chengdu.myqcloud.com/20200307104106.png">
+<meta property="og:image" content="https://azrael-1252339850.cos.ap-chengdu.myqcloud.com/20200307113107.png">
+<meta property="og:image" content="https://azrael-1252339850.cos.ap-chengdu.myqcloud.com/20200307113316.png">
+<meta property="og:image" content="https://azrael-1252339850.cos.ap-chengdu.myqcloud.com/20200307113537.png">
+<meta property="og:image" content="https://azrael-1252339850.cos.ap-chengdu.myqcloud.com/20200307113623.png">
+<meta property="og:image" content="https://azrael-1252339850.cos.ap-chengdu.myqcloud.com/20200307135140.png">
+<meta property="og:image" content="https://azrael-1252339850.cos.ap-chengdu.myqcloud.com/20200307135341.png">
+<meta property="og:image" content="https://azrael-1252339850.cos.ap-chengdu.myqcloud.com/20200307134443.png">
+<meta property="og:updated_time" content="2020-03-07T07:22:44.006Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Prometheus、Grafana安装和配置监控Java应用">
+<meta name="twitter:description" content="Prometheus安装使用docker安装 docker已经安装好之后，正式安装prometheus。 1docker run -d  -p 9090:9090 -v /etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml   -v /etc/localtime:/etc/localtime prom/prometheus  如">
+<meta name="twitter:image" content="https://azrael-1252339850.cos.ap-chengdu.myqcloud.com/20200307104004.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Prometheus、Grafana安装和配置监控Java应用</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/booklist">booklist</a></li>
+         
+          <li><a href="/todo">todo</a></li>
+         
+          <li><a href="/tools">tools</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/03/07/use-canal/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/02/19/golang-install/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://akapril.github.io/2020/03/07/prometheus-grafana/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://akapril.github.io/2020/03/07/prometheus-grafana/&text=Prometheus、Grafana安装和配置监控Java应用"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://akapril.github.io/2020/03/07/prometheus-grafana/&title=Prometheus、Grafana安装和配置监控Java应用"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://akapril.github.io/2020/03/07/prometheus-grafana/&is_video=false&description=Prometheus、Grafana安装和配置监控Java应用"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Prometheus、Grafana安装和配置监控Java应用&body=Check out this article: https://akapril.github.io/2020/03/07/prometheus-grafana/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://akapril.github.io/2020/03/07/prometheus-grafana/&title=Prometheus、Grafana安装和配置监控Java应用"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://akapril.github.io/2020/03/07/prometheus-grafana/&title=Prometheus、Grafana安装和配置监控Java应用"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://akapril.github.io/2020/03/07/prometheus-grafana/&title=Prometheus、Grafana安装和配置监控Java应用"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://akapril.github.io/2020/03/07/prometheus-grafana/&title=Prometheus、Grafana安装和配置监控Java应用"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://akapril.github.io/2020/03/07/prometheus-grafana/&name=Prometheus、Grafana安装和配置监控Java应用&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Prometheus安装"><span class="toc-number">1.</span> <span class="toc-text">Prometheus安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#node-export-安装"><span class="toc-number">2.</span> <span class="toc-text">node export 安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Grafana安装"><span class="toc-number">3.</span> <span class="toc-text">Grafana安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#grafana配置"><span class="toc-number">3.1.</span> <span class="toc-text">grafana配置</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#添加数据源"><span class="toc-number">3.1.0.1.</span> <span class="toc-text">添加数据源</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#导入模板"><span class="toc-number">3.1.0.2.</span> <span class="toc-text">导入模板</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#监控jvm"><span class="toc-number">4.</span> <span class="toc-text">监控jvm</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Prometheus配置新增"><span class="toc-number">4.0.1.</span> <span class="toc-text">Prometheus配置新增</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置-Grafana-JVM-Dashboard-监控项"><span class="toc-number">4.0.2.</span> <span class="toc-text">配置 Grafana JVM Dashboard 监控项</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Prometheus、Grafana安装和配置监控Java应用
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Akapril's</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-03-07T02:32:11.000Z" itemprop="datePublished">2020-03-07</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/Grafana/">Grafana</a>, <a class="tag-link" href="/tags/Java/">Java</a>, <a class="tag-link" href="/tags/Prometheus/">Prometheus</a>, <a class="tag-link" href="/tags/spring-boot/">spring boot</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="Prometheus安装"><a href="#Prometheus安装" class="headerlink" title="Prometheus安装"></a>Prometheus安装</h2><p>使用<code>docker</code>安装</p>
+<p><code>docker</code>已经安装好之后，正式安装<code>prometheus</code>。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d  -p 9090:9090 -v /etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml   -v /etc/localtime:/etc/localtime prom/prometheus</span><br></pre></td></tr></table></figure>
+
+<p>如果启动成功，访问<code>http://服务器地址:9090</code></p>
+<h2 id="node-export-安装"><a href="#node-export-安装" class="headerlink" title="node export 安装"></a>node export 安装</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d  -p 9100:9100 quay.io/prometheus/node-exporter</span><br></pre></td></tr></table></figure>
+
+<p>安装完之后，需要修改<code>prometheus.yml</code>配置文件，增加要监听的job，需要指定job的名称，以及暴露的<code>metrics</code>的访问路径</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">"node"</span></span><br><span class="line">  <span class="comment"># metrics_path defaults to '/metrics'</span></span><br><span class="line">  <span class="comment">#  scheme defaults to 'http'.</span></span><br><span class="line">  <span class="attr">static_configs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">targets:</span> <span class="string">["localhost:9001"]</span>  <span class="comment">#使用宿主机内网ip</span></span><br></pre></td></tr></table></figure>
+
+<p>重启<code>prometheus</code>容器生效</p>
+<h2 id="Grafana安装"><a href="#Grafana安装" class="headerlink" title="Grafana安装"></a>Grafana安装</h2><p>可以使用<code>grafana</code>展示监控视图。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name=grafana -p 3001:3000 -v /var/lib/grafana:/var/lib/grafana -v /etc/grafana/grafana.ini:/etc/grafana/grafana.ini   -v /etc/localtime:/etc/localtime grafana/grafana</span><br></pre></td></tr></table></figure>
+
+<p>访问<code>http://ip地址：指定的端口</code>，<code>grafana</code>安装成功，第一次访问需要修改密码，初始密码是<code>admin/admin</code>,修改密码之后，需要按照新密码登录。</p>
+<h3 id="grafana配置"><a href="#grafana配置" class="headerlink" title="grafana配置"></a>grafana配置</h3><h5 id="添加数据源"><a href="#添加数据源" class="headerlink" title="添加数据源"></a>添加数据源</h5><p><img src="https://azrael-1252339850.cos.ap-chengdu.myqcloud.com/20200307104004.png" alt="添加数据源"></p>
+<p><img src="https://azrael-1252339850.cos.ap-chengdu.myqcloud.com/20200307104106.png" alt></p>
+<p><img src="https://azrael-1252339850.cos.ap-chengdu.myqcloud.com/20200307113107.png" alt></p>
+<p><code>Name</code>为数据源名，<code>URL</code>为<code>prometheus</code>地址</p>
+<h5 id="导入模板"><a href="#导入模板" class="headerlink" title="导入模板"></a>导入模板</h5><p><img src="https://azrael-1252339850.cos.ap-chengdu.myqcloud.com/20200307113316.png" alt="导入模板"></p>
+<p><img src="https://azrael-1252339850.cos.ap-chengdu.myqcloud.com/20200307113537.png" alt></p>
+<p>填入<code>8919</code>导入模板</p>
+<p><img src="https://azrael-1252339850.cos.ap-chengdu.myqcloud.com/20200307113623.png" alt></p>
+<p><code>Prometheus Data Source</code>为<code>grafana</code>添加的数据源</p>
+<h2 id="监控jvm"><a href="#监控jvm" class="headerlink" title="监控jvm"></a>监控jvm</h2><p>web项目中增加依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.micrometer<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>micrometer-registry-prometheus<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在<code>application.yml</code>中添加配置</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">management:</span></span><br><span class="line">  <span class="attr">endpoints:</span></span><br><span class="line">    <span class="attr">web:</span></span><br><span class="line">      <span class="attr">exposure:</span></span><br><span class="line">        <span class="attr">include:</span> <span class="string">'*'</span>  <span class="comment">#开启 Actuator 服务</span></span><br><span class="line">  <span class="attr">metrics:</span>			<span class="comment">#将该工程应用名称添加到计量器注册表的 tag 中</span></span><br><span class="line">    <span class="attr">tags:</span></span><br><span class="line">      <span class="attr">application:</span> <span class="string">$&#123;spring.application.name&#125;</span>  <span class="comment">#应用名称比如：app</span></span><br></pre></td></tr></table></figure>
+
+<p>在工程启动主类中增加<code>监控 JVM 性能指标注释下的</code>内容：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebsiteApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(WebsiteApplication<span class="class">.<span class="keyword">class</span>, <span class="title">args</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//监控 JVM 性能指标</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function">MeterRegistryCustomizer&lt;MeterRegistry&gt; <span class="title">configurer</span><span class="params">(@Value(<span class="string">"$&#123;spring.application.name&#125;"</span>)</span> String applicationName)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> registry -&gt; registry.config().commonTags(<span class="string">"application"</span>, applicationName);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>启动动服务，浏览器访问 <code>http://127.0.0.1:8088/actuator/prometheus</code> 就可以看到应用的 一系列不同类型 <code>metrics</code> 信息</p>
+<h4 id="Prometheus配置新增"><a href="#Prometheus配置新增" class="headerlink" title="Prometheus配置新增"></a>Prometheus配置新增</h4><p>在<code>prometheus.yml</code>文件新增如下配置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">'application'</span></span><br><span class="line">    <span class="attr">scrape_interval:</span> <span class="string">5s</span></span><br><span class="line">    <span class="attr">metrics_path:</span> <span class="string">'/actuator/prometheus'</span></span><br><span class="line">    <span class="attr">file_sd_configs:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">files:</span> <span class="string">['/etc/prometheus/*.json']</span></span><br></pre></td></tr></table></figure>
+
+<p>新建<code>json</code>文件<code>app.json</code>,内容如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"targets"</span>: [</span><br><span class="line">            <span class="string">"ip:port"</span>	<span class="comment">//项目访问地址</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">"labels"</span>: &#123;</span><br><span class="line">            <span class="attr">"instance"</span>: <span class="string">"app"</span>,	<span class="comment">//可使用应用名称</span></span><br><span class="line">            <span class="attr">"service"</span>: <span class="string">"app-service"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//可增加多个项目的配置</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>重启 <code>Prometheus</code> 服务，查看 <code>Prometheu</code>界面 <code>Target</code> 中确认是否添加成功。</p>
+<p><img src="https://azrael-1252339850.cos.ap-chengdu.myqcloud.com/20200307135140.png" alt></p>
+<p><img src="https://azrael-1252339850.cos.ap-chengdu.myqcloud.com/20200307135341.png" alt></p>
+<h4 id="配置-Grafana-JVM-Dashboard-监控项"><a href="#配置-Grafana-JVM-Dashboard-监控项" class="headerlink" title="配置 Grafana JVM Dashboard 监控项"></a>配置 Grafana JVM Dashboard 监控项</h4><p>参考grafana配置中导入模板的操作，导入<code>4701</code>模板</p>
+<p>效果如下：</p>
+<p><img src="https://azrael-1252339850.cos.ap-chengdu.myqcloud.com/20200307134443.png" alt></p>
+<p>参考地址：</p>
+<p><a href="https://blog.csdn.net/aixiaoyang168/article/details/100866159" target="_blank" rel="noopener">https://blog.csdn.net/aixiaoyang168/article/details/100866159</a></p>
+<p><a href="https://cloud.tencent.com/developer/article/1442143" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1442143</a></p>
+<p><a href="https://www.jianshu.com/p/12df755f2c66" target="_blank" rel="noopener">https://www.jianshu.com/p/12df755f2c66</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/booklist">booklist</a></li>
+         
+          <li><a href="/todo">todo</a></li>
+         
+          <li><a href="/tools">tools</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Prometheus安装"><span class="toc-number">1.</span> <span class="toc-text">Prometheus安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#node-export-安装"><span class="toc-number">2.</span> <span class="toc-text">node export 安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Grafana安装"><span class="toc-number">3.</span> <span class="toc-text">Grafana安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#grafana配置"><span class="toc-number">3.1.</span> <span class="toc-text">grafana配置</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#添加数据源"><span class="toc-number">3.1.0.1.</span> <span class="toc-text">添加数据源</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#导入模板"><span class="toc-number">3.1.0.2.</span> <span class="toc-text">导入模板</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#监控jvm"><span class="toc-number">4.</span> <span class="toc-text">监控jvm</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Prometheus配置新增"><span class="toc-number">4.0.1.</span> <span class="toc-text">Prometheus配置新增</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置-Grafana-JVM-Dashboard-监控项"><span class="toc-number">4.0.2.</span> <span class="toc-text">配置 Grafana JVM Dashboard 监控项</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://akapril.github.io/2020/03/07/prometheus-grafana/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://akapril.github.io/2020/03/07/prometheus-grafana/&text=Prometheus、Grafana安装和配置监控Java应用"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://akapril.github.io/2020/03/07/prometheus-grafana/&title=Prometheus、Grafana安装和配置监控Java应用"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://akapril.github.io/2020/03/07/prometheus-grafana/&is_video=false&description=Prometheus、Grafana安装和配置监控Java应用"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Prometheus、Grafana安装和配置监控Java应用&body=Check out this article: https://akapril.github.io/2020/03/07/prometheus-grafana/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://akapril.github.io/2020/03/07/prometheus-grafana/&title=Prometheus、Grafana安装和配置监控Java应用"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://akapril.github.io/2020/03/07/prometheus-grafana/&title=Prometheus、Grafana安装和配置监控Java应用"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://akapril.github.io/2020/03/07/prometheus-grafana/&title=Prometheus、Grafana安装和配置监控Java应用"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://akapril.github.io/2020/03/07/prometheus-grafana/&title=Prometheus、Grafana安装和配置监控Java应用"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://akapril.github.io/2020/03/07/prometheus-grafana/&name=Prometheus、Grafana安装和配置监控Java应用&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2020 Akapril
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/booklist">booklist</a></li>
+         
+          <li><a href="/todo">todo</a></li>
+         
+          <li><a href="/tools">tools</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<!-- clipboard -->
+
+  <script src="/lib/clipboard/clipboard.min.js"></script>
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight .code pre").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
