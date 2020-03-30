@@ -1,0 +1,45 @@
+---
+title: Kubernetes安装
+date: 2020-03-30 08:24:23
+tags: [Kubernetes,k8s]
+---
+
+#### 基本信息
+
+centos 7 阿里云
+
+```shell
+# 安装 kubelet kubeadm kubectl
+# 配置源
+cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
+EOF
+# 安装
+sudo yum install -y kubelet kubeadm kubectl
+#启动服务
+systemctl enable kubelet && systemctl start kubelet
+```
+
+
+
+#### 使用kind安装
+
+```shell
+curl -Lo ./kind https://github.com/kubernetes-sigs/kind/releases/download/v0.7.0/kind-$(uname)-amd64
+chmod +x ./kind
+mv ./kind /usr/local/bin/kind
+```
+
+
+
+
+
+参考文档：
+
+[https://yq.aliyun.com/articles/626118](https://yq.aliyun.com/articles/626118)
