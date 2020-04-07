@@ -31,7 +31,6 @@ before_script:
   - sed -i "s/github_token/${blog}/g" _config.yml || exit 1
 # 执行清缓存，生成网页操作
 script:
-  - hexo clean
   - hexo generate
   - echo ${ENV_TEST}
   - hexo deploy
