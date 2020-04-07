@@ -10,7 +10,7 @@ centos 7 阿里云
 
 #### 安装docker
 
-参考[docker以及docker-compose安装](docker-install-docker-compose-install)
+参考[docker以及docker-compose安装](/2020/03/30/docker-install-docker-compose-install/)
 
 #### 安装Rancher1.x
 

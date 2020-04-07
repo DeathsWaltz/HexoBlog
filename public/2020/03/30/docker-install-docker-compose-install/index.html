@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang=en>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="基本信息centos 7 阿里云 安装Docker使用官方脚本自动安装1curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun  手动安装帮助（阿里云ecs可通过内网安装）centos7 1234567891011121314151617181920212223242526272829303132333435# step">
+<meta name="keywords" content="docker,docker-compose">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker以及docker-compose安装">
+<meta property="og:url" content="https://akapril.github.io/2020/03/30/docker-install-docker-compose-install/index.html">
+<meta property="og:site_name" content="Akapril&#39;s">
+<meta property="og:description" content="基本信息centos 7 阿里云 安装Docker使用官方脚本自动安装1curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun  手动安装帮助（阿里云ecs可通过内网安装）centos7 1234567891011121314151617181920212223242526272829303132333435# step">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-03-30T01:34:06.746Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="docker以及docker-compose安装">
+<meta name="twitter:description" content="基本信息centos 7 阿里云 安装Docker使用官方脚本自动安装1curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun  手动安装帮助（阿里云ecs可通过内网安装）centos7 1234567891011121314151617181920212223242526272829303132333435# step">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>docker以及docker-compose安装</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/booklist">booklist</a></li>
+         
+          <li><a href="/todo">todo</a></li>
+         
+          <li><a href="/tools">tools</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2020/03/07/use-canal/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://akapril.github.io/2020/03/30/docker-install-docker-compose-install/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://akapril.github.io/2020/03/30/docker-install-docker-compose-install/&text=docker以及docker-compose安装"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://akapril.github.io/2020/03/30/docker-install-docker-compose-install/&title=docker以及docker-compose安装"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://akapril.github.io/2020/03/30/docker-install-docker-compose-install/&is_video=false&description=docker以及docker-compose安装"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=docker以及docker-compose安装&body=Check out this article: https://akapril.github.io/2020/03/30/docker-install-docker-compose-install/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://akapril.github.io/2020/03/30/docker-install-docker-compose-install/&title=docker以及docker-compose安装"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://akapril.github.io/2020/03/30/docker-install-docker-compose-install/&title=docker以及docker-compose安装"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://akapril.github.io/2020/03/30/docker-install-docker-compose-install/&title=docker以及docker-compose安装"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://akapril.github.io/2020/03/30/docker-install-docker-compose-install/&title=docker以及docker-compose安装"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://akapril.github.io/2020/03/30/docker-install-docker-compose-install/&name=docker以及docker-compose安装&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#基本信息"><span class="toc-number">1.</span> <span class="toc-text">基本信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装Docker"><span class="toc-number">2.</span> <span class="toc-text">安装Docker</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#使用官方脚本自动安装"><span class="toc-number">2.1.</span> <span class="toc-text">使用官方脚本自动安装</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#手动安装帮助（阿里云ecs可通过内网安装）"><span class="toc-number">2.2.</span> <span class="toc-text">手动安装帮助（阿里云ecs可通过内网安装）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#镜像加速"><span class="toc-number">2.3.</span> <span class="toc-text">镜像加速</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#关闭-selinux"><span class="toc-number">2.4.</span> <span class="toc-text">关闭 selinux</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装Docker-compose"><span class="toc-number">3.</span> <span class="toc-text">安装Docker-compose</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        docker以及docker-compose安装
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Akapril's</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-03-30T00:31:06.000Z" itemprop="datePublished">2020-03-30</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/docker/">docker</a>, <a class="tag-link" href="/tags/docker-compose/">docker-compose</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h4 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h4><p>centos 7 阿里云</p>
+<h4 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h4><h5 id="使用官方脚本自动安装"><a href="#使用官方脚本自动安装" class="headerlink" title="使用官方脚本自动安装"></a>使用官方脚本自动安装</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun</span><br></pre></td></tr></table></figure>
+
+<h5 id="手动安装帮助（阿里云ecs可通过内网安装）"><a href="#手动安装帮助（阿里云ecs可通过内网安装）" class="headerlink" title="手动安装帮助（阿里云ecs可通过内网安装）"></a>手动安装帮助（阿里云ecs可通过内网安装）</h5><p>centos7</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> step 1: 安装必要的一些系统工具</span></span><br><span class="line">sudo yum install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line"><span class="meta">#</span><span class="bash"> Step 2: 添加软件源信息</span></span><br><span class="line">sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line"><span class="meta">#</span><span class="bash"> Step 3: 更新并安装 Docker-CE</span></span><br><span class="line">sudo yum makecache fast</span><br><span class="line">sudo yum -y install docker-ce</span><br><span class="line"><span class="meta">#</span><span class="bash"> Step 4: 开启Docker服务</span></span><br><span class="line">sudo service docker start</span><br><span class="line"></span><br><span class="line">注意：其他注意事项在下面的注释中</span><br><span class="line"><span class="meta">#</span><span class="bash"> 官方软件源默认启用了最新的软件，您可以通过编辑软件源的方式获取各个版本的软件包。例如官方并没有将测试版本的软件源置为可用，你可以通过以下方式开启。同理可以开启各种测试版本等。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> vim /etc/yum.repos.d/docker-ce.repo</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   将 [docker-ce-test] 下方的 enabled=0 修改为 enabled=1</span></span><br><span class="line"><span class="meta">#</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装指定版本的Docker-CE:</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Step 1: 查找Docker-CE的版本:</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> yum list docker-ce.x86_64 --showduplicates | sort -r</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   Loading mirror speeds from cached hostfile</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   Loaded plugins: branch, fastestmirror, langpacks</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   docker-ce.x86_64            17.03.1.ce-1.el7.centos            docker-ce-stable</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   docker-ce.x86_64            17.03.1.ce-1.el7.centos            @docker-ce-stable</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   docker-ce.x86_64            17.03.0.ce-1.el7.centos            docker-ce-stable</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   Available Packages</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Step2 : 安装指定版本的Docker-CE: (VERSION 例如上面的 17.03.0.ce.1-1.el7.centos)</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> sudo yum -y install docker-ce-[VERSION]</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 注意：在某些版本之后，docker-ce安装出现了其他依赖包，如果安装失败的话请关注错误信息。例如 docker-ce 17.03 之后，需要先安装 docker-ce-selinux。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> yum list docker-ce-selinux- --showduplicates | sort -r</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> sudo yum -y install docker-ce-selinux-[VERSION]</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 通过经典网络、VPC网络内网安装时，用以下命令替换Step 2中的命令</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 经典网络：</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> sudo yum-config-manager --add-repo http://mirrors.aliyuncs.com/docker-ce/linux/centos/docker-ce.repo</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> VPC网络：</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> sudo yum-config-manager --add-repo http://mirrors.could.aliyuncs.com/docker-ce/linux/centos/docker-ce.repo</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="镜像加速"><a href="#镜像加速" class="headerlink" title="镜像加速"></a>镜像加速</h5><p>新建或修改<code>/etc/docker/daemon.json</code>，加入：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"registry-mirrors"</span>: [</span><br><span class="line">        <span class="string">"https://dockerhub.azk8s.cn"</span>,</span><br><span class="line">        <span class="string">"https://reg-mirror.qiniu.com"</span></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一定要确保格式没有问题，否则 docker 无法启动，修改完成后执行以下命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">重新加载配置</span></span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line"><span class="meta">#</span><span class="bash">启动Docker</span></span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
+
+<h5 id="关闭-selinux"><a href="#关闭-selinux" class="headerlink" title="关闭 selinux"></a>关闭 selinux</h5><p>1、临时关闭（不用重启机器）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setenforce 0 #设置SELinux 成为permissive模式</span><br><span class="line"><span class="meta">#</span><span class="bash">setenforce 1 设置SELinux 成为enforcing模式</span></span><br></pre></td></tr></table></figure>
+
+<p>2、修改配置文件(重启机器)</p>
+<p>修改<code>/etc/selinux/config</code> 文件</p>
+<p>将<code>SELINUX=enforcing</code>改为<code>SELINUX=disabled</code></p>
+<p>重启机器即可</p>
+<h4 id="安装Docker-compose"><a href="#安装Docker-compose" class="headerlink" title="安装Docker-compose"></a>安装Docker-compose</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
+
+<p>使用github进行安装可能会下载失败，可先下载<code>docker-compose</code>安装文件后上传到服务进行安装。上传到服务器后移动到<code>/usr/local/bin</code>目录，使用<code>chmod +x /usr/local/bin/docker-compose</code>命令修改<code>docker-compose</code>为可执行权限。</p>
+<p>参考地址：</p>
+<p><a href="https://yq.aliyun.com/articles/110806" target="_blank" rel="noopener">https://yq.aliyun.com/articles/110806</a></p>
+<p><a href="https://docs.docker.com/compose/install/" target="_blank" rel="noopener">https://docs.docker.com/compose/install/</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/booklist">booklist</a></li>
+         
+          <li><a href="/todo">todo</a></li>
+         
+          <li><a href="/tools">tools</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#基本信息"><span class="toc-number">1.</span> <span class="toc-text">基本信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装Docker"><span class="toc-number">2.</span> <span class="toc-text">安装Docker</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#使用官方脚本自动安装"><span class="toc-number">2.1.</span> <span class="toc-text">使用官方脚本自动安装</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#手动安装帮助（阿里云ecs可通过内网安装）"><span class="toc-number">2.2.</span> <span class="toc-text">手动安装帮助（阿里云ecs可通过内网安装）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#镜像加速"><span class="toc-number">2.3.</span> <span class="toc-text">镜像加速</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#关闭-selinux"><span class="toc-number">2.4.</span> <span class="toc-text">关闭 selinux</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装Docker-compose"><span class="toc-number">3.</span> <span class="toc-text">安装Docker-compose</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://akapril.github.io/2020/03/30/docker-install-docker-compose-install/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://akapril.github.io/2020/03/30/docker-install-docker-compose-install/&text=docker以及docker-compose安装"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://akapril.github.io/2020/03/30/docker-install-docker-compose-install/&title=docker以及docker-compose安装"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://akapril.github.io/2020/03/30/docker-install-docker-compose-install/&is_video=false&description=docker以及docker-compose安装"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=docker以及docker-compose安装&body=Check out this article: https://akapril.github.io/2020/03/30/docker-install-docker-compose-install/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://akapril.github.io/2020/03/30/docker-install-docker-compose-install/&title=docker以及docker-compose安装"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://akapril.github.io/2020/03/30/docker-install-docker-compose-install/&title=docker以及docker-compose安装"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://akapril.github.io/2020/03/30/docker-install-docker-compose-install/&title=docker以及docker-compose安装"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://akapril.github.io/2020/03/30/docker-install-docker-compose-install/&title=docker以及docker-compose安装"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://akapril.github.io/2020/03/30/docker-install-docker-compose-install/&name=docker以及docker-compose安装&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2020 Akapril
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/booklist">booklist</a></li>
+         
+          <li><a href="/todo">todo</a></li>
+         
+          <li><a href="/tools">tools</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<!-- clipboard -->
+
+  <script src="/lib/clipboard/clipboard.min.js"></script>
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight .code pre").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

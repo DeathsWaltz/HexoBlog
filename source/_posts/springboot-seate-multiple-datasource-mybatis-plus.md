@@ -85,7 +85,7 @@ mysql建表脚本存放于module seata-server-->conf-->db_store.sql
 
 打开seata-server-->conf-->file.conf，修改store.mode="db";也可以在启动时加命令参数-m db指定。
 
-```
+```properties
 ## transaction log store
 store {
   ## store mode: file、db

@@ -74,7 +74,11 @@ search:
   path: search.xml
   field: post
 
-
+disqus:
+  enable: true
+  shortname: akapril-1    #your name
+  count: true
+  lazyload: true
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html

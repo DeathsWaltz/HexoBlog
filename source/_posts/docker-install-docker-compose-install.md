@@ -6,6 +6,8 @@ tags: [docker,docker-compose]
 
 #### 基本信息
 
+centos 7 阿里云
+
 #### 安装Docker
 
 ##### 使用官方脚本自动安装
