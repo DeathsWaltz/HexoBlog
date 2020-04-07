@@ -15,7 +15,6 @@ branches:
 cache:
   directories:
     - node_modules
-
 #在构建之前安装hexo环境
 before_install:
   - npm install -g hexo-cli
