@@ -2,7 +2,6 @@
 language: node_js:latest
 node_js: 
   - latest
-
 env:
  global:
    - URL_REPO: github.com/akapril/akapril.github.io.git
