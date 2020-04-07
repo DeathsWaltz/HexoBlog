@@ -60,13 +60,13 @@
       
         <tags>
             
+            <tag> spring boot </tag>
+            
             <tag> Prometheus </tag>
             
             <tag> Grafana </tag>
             
             <tag> Java </tag>
-            
-            <tag> spring boot </tag>
             
         </tags>
       
@@ -133,9 +133,9 @@
       
         <tags>
             
-            <tag> spring boot </tag>
-            
             <tag> seata </tag>
+            
+            <tag> spring boot </tag>
             
             <tag> mybatis plus </tag>
             

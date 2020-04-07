@@ -85,7 +85,7 @@ disqus:
 deploy:
   type: git
   repository: 
-    github: https://github_token@github.com/akapril/akapril.github.io.git
+    github: https://akapril@github.com/akapril/akapril.github.io.git
     # coding: https://e.coding.net/akapril/akapril.git
   branch: master
 
