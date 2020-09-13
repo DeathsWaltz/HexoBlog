@@ -2,6 +2,7 @@
 title: cordova插件开发
 date: 2020-04-23 16:12:24
 tags: [cordova,插件,plugin,cordova-plugin,开发]
+categories: [学习,cordova,plugin]
 ---
 
 #### 原因

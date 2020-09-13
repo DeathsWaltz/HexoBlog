@@ -2,6 +2,7 @@
 title: Prometheus、Grafana安装和配置监控Java应用
 date: 2020-03-07 10:32:11
 tags: [Prometheus,Grafana,Java,spring boot]
+categories: [学习,docker,Grafana]
 ---
 
 ## Prometheus安装

@@ -2,6 +2,7 @@
 title: 使用drone实现自动化部署安装配置以及踩坑
 date: 2020-02-18 14:55:16
 tags: [docker,rancher,drone,gitea]
+categories: [学习,docker,rancher]
 ---
 
 #### 基本信息

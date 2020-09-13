@@ -2,6 +2,7 @@
 title: Nacos+Seata+Spring boot+Mybatis plus多数据源事务控制
 date: 2019-12-12 09:42:16
 tags: [seata,spring boot,mybatis plus,多数据源,事务,nacos]
+categories: [学习,java,事务]
 ---
 
 ### 问题

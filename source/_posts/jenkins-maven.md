@@ -2,6 +2,7 @@
 title: maven安装jar到本地仓库后jenkins编译项目引用不到问题
 date: 2019-10-19 13:30:31
 tags: [jenkins,maven]
+categories: [学习,jenkins,error]
 ---
 
 

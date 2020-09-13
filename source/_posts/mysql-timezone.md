@@ -2,6 +2,7 @@
 title: mysql保存日期mybatis查询后多8小时问题
 date: 2019-10-19 11:11:10
 tags: [mysql,mybaits,java]
+categories: [学习,mybatis,error]
 ---
 
 

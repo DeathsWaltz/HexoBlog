@@ -2,6 +2,7 @@
 title: ssh免密登录
 date: 2020-04-13 15:59:54
 tags: [ssh]
+categories: [学习,linux]
 ---
 
 #### 添加hosts

@@ -2,6 +2,7 @@
 title: 使用jenkins记录
 date: 2019-09-12 08:04:39
 tags: [jenkins,自动化构建,自动部署,CI/CD,持续集成,持续部署]
+categories: [学习,jenkins]
 ---
 
 ### Jenkins

@@ -3,7 +3,7 @@
 title: 使用canal进行mysql数据实时同步
 date: 2020-03-07 14:00:42
 tags: [canal,mysql,canal-server,canal-adapter]
-
+categories: [学习,data]
 ---
 
 ## 场景

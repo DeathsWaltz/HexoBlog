@@ -2,6 +2,7 @@
 title: Spring boot使用多数据源
 date: 2019-09-11 15:56:39
 tags: [springboot,多数据源]
+categories: [学习,java,事务,多数据源]
 ---
 
 #### 依赖： pom.xml

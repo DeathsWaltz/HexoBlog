@@ -15,11 +15,11 @@ direction: ltr
 # languages/*.yml
 nav:
   home: /
-  booklist: /booklist
-  todo: todo
+  # booklist: /booklist
+  tools: tools
   # about: /about
   # tags: /tags/
-  # categories: /categories/
+  categories: /categories/
   # search: /search/
 
 # Links to your social media accounts.
@@ -136,6 +136,7 @@ disqus:
   shortname: akapril-1    #your name
   count: true
   lazyload: true
+
 # Fill in your Google Analytics tracking ID to enable Google Analytics.
 google_analytics:
   enabled: false

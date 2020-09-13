@@ -2,6 +2,7 @@
 title: docker修改镜像文件存储位置
 date: 2020-04-13 16:32:01
 tags: [docker,storage,'存储位置']
+categories: [学习,docker]
 ---
 
 #### 修改docker文件存储位置

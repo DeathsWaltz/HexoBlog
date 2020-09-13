@@ -2,6 +2,7 @@
 title: Spring boot分库分表方案
 date: 2019-09-11 16:51:59
 tags: [mycat,database,sharding-jdbc,分库分表,sqlserver]
+categories: [学习]
 ---
 
 

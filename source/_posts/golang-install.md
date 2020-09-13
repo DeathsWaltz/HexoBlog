@@ -2,6 +2,7 @@
 title: Golang安装
 date: 2020-02-19 11:25:24
 tags:  [golang,go,goproxy]
+categories: [学习,golang]
 ---
 
 基本信息

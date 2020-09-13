@@ -3,6 +3,7 @@ title: 更换Hexo主题
 date: 2019-09-11 13:38:30
 type: search
 tags: [themes,cactus,hexo]
+categories: [学习,hexo,themes]
 ---
 
 ### 原主题Next的Mist 

@@ -2,6 +2,7 @@
 title: docker以及docker-compose安装
 date: 2020-03-30 08:31:06
 tags: [docker,docker-compose]
+categories: [学习,docker]
 ---
 
 #### 基本信息

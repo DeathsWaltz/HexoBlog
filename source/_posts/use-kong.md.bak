@@ -1,0 +1,18 @@
+---
+title: kong网关安装使用以及管理界面kongA安装配置
+date: 2020-09-12 14:13:45
+tags: [kong,konga,kongA,kong管理界面,网关,docker]
+categories: [学习,docker,网关,kong]
+---
+
+#### 使用docker进行安装
+
+
+
+
+
+参考文档：
+
+[https://www.cnblogs.com/jybky/p/11909880.html](https://www.cnblogs.com/jybky/p/11909880.html)
+
+[https://www.lijiaocn.com/%E9%A1%B9%E7%9B%AE/2018/09/29/nginx-openresty-kong.html](https://www.lijiaocn.com/%E9%A1%B9%E7%9B%AE/2018/09/29/nginx-openresty-kong.html)
